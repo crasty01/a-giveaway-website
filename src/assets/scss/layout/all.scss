@@ -1,0 +1,17 @@
+@use '../abstracts' as *;
+
+.all {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 var(--wrapper-padding);
+  //padding-top: calc(var(--base-size) * 5);
+  //padding-bottom: calc(var(--base-size));
+  max-width: var(--max-width);
+  margin: 0 auto;
+
+  display: grid;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  grid-template-rows: auto 1fr auto;
+}

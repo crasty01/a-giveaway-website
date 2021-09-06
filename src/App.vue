@@ -1,26 +1,147 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header class="header">
+    <h1>A giveaway website</h1>
+  </header>
+  <transition name="fade">
+    <main class="main" v-if="!calculating">
+      <h2 class="h3">participants:</h2>
+      <div class="main-grid">
+        <section class="list" :class="{ large: entries.length > 7 }">
+          <ul role="list" ref="list">
+            <Item
+              v-for="item in entries"
+              :user="item"
+              :key="item"
+              @itemDel="itemDel($event)"
+              @itemSub="itemSub($event)"
+              @itemAdd="itemAdd($event)"
+              class="list-item"
+            />
+          </ul>
+          <Button
+            class="primary full"
+            text="Roll the dice - figuratively speaking"
+            @click="calcSwitch()"
+          />
+        </section>
+        <Adder @itemAdded="add($event)" />
+      </div>
+    </main>
+  </transition>
+  <transition name="fade">
+    <Calculation v-if="calculating" :entries="entries" @calcSwitch="calcSwitch"/>
+  </transition>
+  <footer class="footer">
+    <div class="info">
+      made with <Icon class="inline bold">favorite_border</Icon> <span>& vue</span> <br />
+      by &copy; <a class="author" href="https://danielvondra.tk">Daniel Vondra</a>
+    </div>
+    <div class="options">
+      <div v-if="!darkmode" class="darkmode">
+        <span class="mono">darkmode: </span>
+        <Icon class="clickable inline" @click="darkmode = true">dark_mode</Icon>
+      </div>
+      <div v-if="darkmode" class="darkmode">
+        <span class="mono">lightmode: </span>
+        <Icon class="clickable inline" @click="darkmode = false">light_mode</Icon>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+
+import Item from '@/components/Item.vue';
+import Adder from '@/components/Adder.vue';
+import Button from '@/components/Button.vue';
+import Calculation from '@/components/Calculation.vue';
+import Icon from '@/components/Icon.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
+    Item,
+    Adder,
+    Button,
+    Calculation,
+    Icon,
+  },
+  data() {
+    return {
+      entries: [],
+      calculating: false,
+      darkmode: true,
+    };
+  },
+  mounted() {
+    // console.log(localStorage);
+    if (localStorage.entries) {
+      this.entries = JSON.parse(localStorage.entries);
+    }
+
+    this.switchModes(true);
+  },
+  watch: {
+    entries: {
+      handler(val) {
+        this.$scrollToEnd(this.$refs.list);
+        localStorage.entries = JSON.stringify(val);
+      },
+      deep: true,
+    },
+    darkmode: {
+      handler() { this.switchModes(); },
+    },
+  },
+  methods: {
+    switchModes(init = false) {
+      if (init) {
+        if (localStorage.darkmode === undefined) {
+          this.darkmode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          localStorage.darkmode = this.darkmode;
+        } else {
+          this.darkmode = localStorage.darkmode === 'true';
+        }
+      }
+
+      document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
+      localStorage.setItem('darkmode', this.darkmode);
+      console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
+    },
+    add(item) {
+      const i = this.entries.find((e) => e.name === item.name);
+      if (i) i.entries += item.entries;
+      else this.entries.push(item);
+    },
+    itemDel(e) {
+      // console.log('itemDel', e);
+      this.entries = this.entries.filter((f) => f.name !== e);
+    },
+    itemSub(e) {
+      // console.log('itemSub', e);
+      const c = this.entries.find((f) => f.name === e);
+      if (c.entries > 1) c.entries += -1;
+      // if (this.entries[e] <= 0) this.itemDel(e);
+    },
+    itemAdd(e) {
+      // console.log('itemAdd', e);
+      this.entries.find((f) => f.name === e).entries += 1;
+    },
+    calcSwitch() {
+      this.calculating = !this.calculating;
+    },
   },
 };
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 150ms ease-in;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

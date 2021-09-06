@@ -1,0 +1,119 @@
+@use '../abstracts' as *;
+@use '../layout/item.scss';
+
+:where(.button) {
+  --bg: var(--clr-accent-700);
+  color: var(--clr-dark-100);
+
+  @extend .item;
+  grid-template-columns: auto 1fr;
+  gap: calc(var(--base-size) * 1);
+  justify-items: left;
+  width: fit-content;
+  user-select: none;
+  text-align: left;
+  cursor: pointer;
+  border-color: var(--bg);
+  background-color: var(--bg);
+
+  transition:
+    background-color 150ms ease-in,
+    border-color 150ms ease-in;
+
+  &:hover {
+    --bg: var(--clr-accent-600);
+
+    & .arrow > svg, &:focus > svg {
+      animation:
+        arrow-out 150ms ease-in 0ms 1 forwards,
+        arrow-in 200ms cubic-bezier(0.33, 0.33, 1, 0.66) 150ms 1 forwards;
+    }
+
+    &.rotate .btn-icon > * {
+      animation: icon-rotate 350ms ease-in-out 1 forwards;
+    }
+  }
+
+  & .btn-icon {
+    overflow: hidden;
+    width: auto;
+    max-width: 4rem;
+    height: 100%;
+    justify-self: left;
+    align-self: stretch;
+    display: grid;
+    place-content: center;
+    background-color: transparent;
+
+    &.arrow {
+      padding: .3rem;
+    }
+  }
+
+  &.primary {
+    --bg: var(--clr-accent-400);
+    color: var(--clr-light-800);
+
+    &:hover {
+      --bg: var(--clr-accent-300);
+    }
+
+    & .arrow {
+      transform: rotate(-90deg);
+      filter: invert(99%) sepia(15%) saturate(0%) hue-rotate(233deg) brightness(112%) contrast(92%);
+    }
+  }
+
+  &.full {
+    width: 100%;
+    & .btn-icon {
+      justify-self: right;
+    }
+  }
+
+  &.half {
+    width: 50%;
+    & .btn-icon {
+      justify-self: right;
+    }
+  }
+
+  &.back {
+    & .btn-icon {
+      grid-column: 1;
+      grid-row: 1;
+      transform: rotate(-180deg);
+    }
+  }
+
+  .darkmode & {
+    border-color: var(--bg);
+  }
+}
+
+$as: 1rem;
+@keyframes arrow-out {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate($as, $as);
+  }
+}
+
+@keyframes arrow-in {
+  0% {
+    transform: translate(-$as, -$as);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes icon-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

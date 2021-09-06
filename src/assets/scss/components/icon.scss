@@ -1,0 +1,18 @@
+:where(.icon) {
+  background-color: transparent;
+  color: inherit;
+  user-select: none;
+  
+  &.inline {
+    //font-size: 1.2em;
+    transform: translateY(.3em);
+  }
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &.bold {
+    font-weight: 900;
+  }
+}

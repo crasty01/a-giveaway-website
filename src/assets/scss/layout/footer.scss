@@ -1,0 +1,6 @@
+:where(.footer) {
+  --spacing: 3rem;
+  display: grid;
+  padding: var(--spacing) 0;
+  gap: var(--spacing);
+}

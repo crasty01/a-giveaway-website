@@ -1,5 +1,16 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './registerServiceWorker';
+import './assets/scss/all.css';
 
-createApp(App).mount('#app');
+const app = createApp(App);
+
+app.config.globalProperties.$scrollToEnd = (el, type = 'smooth') => {
+  el.scrollTo({
+    top: el.scrollHeight,
+    left: 0,
+    behavior: type,
+  });
+};
+
+app.mount('#app');

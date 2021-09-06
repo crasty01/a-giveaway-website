@@ -1,0 +1,40 @@
+@for $i from 1 to 6 {
+  h#{$i},
+  .h#{$i} {
+    --font-size: var(--fs-#{$i}00);
+    text-transform: uppercase;
+    font-family: 'Poppins';
+    font-weight: 900;
+    display: block;
+    line-height: 1.1;
+  }
+}
+
+body {
+  font-family: 'Roboto Mono';
+  font-weight: 900;
+}
+
+:where(*) {
+  font-family: inherit;
+  font-weight: inherit;
+  word-break: break-word;
+  font-size: var(--font-size, --fs-normal);
+}
+
+:where(.mono) {
+  font-family: 'Roboto Mono';
+  font-weight: 400;
+}
+
+:where(svg) {
+  fill: var(--clr-dark-100);
+
+  :where(*) {
+    fill: inherit;
+  }
+}
+
+article {
+  max-width: 75ch;
+}
