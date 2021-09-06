@@ -29,9 +29,9 @@ form {
   max-width: calc(var(--base-size) * 100);
 
   @include mq(medium) {
-    &:not(.narrow) {
+    //&:not(.narrow) {
       width: calc(var(--base-size) * 100);
-    }
+    //}
   }
 
   & .row {
@@ -73,6 +73,12 @@ form {
     background-color: inherit;
     border-style: dashed;
     resize: vertical;
+  }
+
+  & .buttons {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--base-size);
   }
 }
 

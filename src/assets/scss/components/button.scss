@@ -20,6 +20,17 @@
     background-color 150ms ease-in,
     border-color 150ms ease-in;
 
+  
+  & .arrow {
+    display: block;
+  }
+  
+  @include mq(small) {
+    & .arrow {
+      display: none;
+    }
+  }
+
   &:hover {
     --bg: var(--clr-accent-600);
 

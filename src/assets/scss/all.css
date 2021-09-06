@@ -336,21 +336,6 @@ body {
 :where(section) *:where(.text) {
   --section-spacing: 0.6rem;
 }
-:where(.icon) {
-  background-color: transparent;
-  color: inherit;
-  user-select: none;
-}
-:where(.icon).inline {
-  transform: translateY(0.3em);
-}
-:where(.icon).clickable {
-  cursor: pointer;
-}
-:where(.icon).bold {
-  font-weight: 900;
-}
-
 .item, .alert, form input, form textarea, :where(.button) {
   width: 100%;
   border: solid var(--border-width) var(--clr-dark-100);
@@ -406,6 +391,52 @@ body {
   border-color: var(--clr-dark-400);
 }
 
+:where(.icon) {
+  background-color: transparent;
+  color: inherit;
+  display: grid;
+  place-content: center;
+}
+:where(.icon).inline {
+  transform: translateY(0.3em);
+}
+:where(.icon).clickable {
+  cursor: pointer;
+  user-select: none;
+}
+:where(.icon).bold {
+  font-weight: 900;
+}
+:where(.icon).padding {
+  padding: var(--base-size);
+  border-radius: var(--base-size);
+  user-select: none;
+}
+:where(.icon).state {
+  transition: background-color 150ms ease-in-out;
+  background-color: var(--clr-light-600);
+}
+.darkmode :where(.icon).state {
+  background-color: var(--clr-dark-300);
+  color: var(--clr-dark-100);
+}
+:where(.icon).state > span {
+  transition: opacity 150ms ease-in-out, transform 150ms cubic-bezier(0.6, 0.1, 0.6, 1.5);
+  transform: scale(0.5);
+  display: block;
+  opacity: 0;
+}
+:where(.icon).state.active {
+  background-color: var(--clr-special-danger);
+}
+:where(.icon).state.active.success {
+  background-color: var(--clr-special-success);
+}
+:where(.icon).state.active > span {
+  opacity: 1;
+  transform: scale(1);
+}
+
 :where(.button) {
   --bg: var(--clr-accent-700);
   color: var(--clr-dark-100);
@@ -419,6 +450,14 @@ body {
   border-color: var(--bg);
   background-color: var(--bg);
   transition: background-color 150ms ease-in, border-color 150ms ease-in;
+}
+:where(.button) .arrow {
+  display: block;
+}
+@media only screen and (min-width: 40em) {
+  :where(.button) .arrow {
+    display: none;
+  }
 }
 :where(.button):hover {
   --bg: var(--clr-accent-600);
@@ -527,7 +566,7 @@ form {
   max-width: calc(var(--base-size) * 100);
 }
 @media only screen and (min-width: 65em) {
-  form:not(.narrow) {
+  form {
     width: calc(var(--base-size) * 100);
   }
 }
@@ -563,6 +602,11 @@ form input, form textarea {
   background-color: inherit;
   border-style: dashed;
   resize: vertical;
+}
+form .buttons {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--base-size);
 }
 
 :where(input, textarea) {

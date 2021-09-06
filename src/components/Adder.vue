@@ -15,7 +15,17 @@
         <input type="number" name="entries" id="entries" v-model="entries" />
       </div>
     </div>
-    <Button class="full" text="add one participant" />
+    <div class="buttons">
+      <Button class="full" text="add one participant" />
+      <Icon
+        ref="success_one"
+        class="state"
+        padding
+        :size="45"
+        :success="success"
+        >{{ input_state }}</Icon
+      >
+    </div>
   </form>
   <form
     @submit.prevent="add(parse(names, delimiter), true)"
@@ -30,7 +40,17 @@
       <label for="names" :data-value="!!names">names</label>
       <textarea name="names" id="names" v-model="names" rows="4"></textarea>
     </div>
-    <Button class="full" text="add multiple participants" />
+    <div class="buttons">
+      <Button class="full" text="add multiple participants" />
+      <Icon
+        ref="success_multiple"
+        class="state"
+        padding
+        :size="45"
+        :success="success"
+        >{{ input_state }}</Icon
+      >
+    </div>
   </form>
   <Alerts @hide="hide($event)" :alerts="alerts_comp" :key="alerts" />
   <!--</section>-->
@@ -38,7 +58,8 @@
 
 <script>
 import Button from '@/components/Button.vue';
-import Alerts from './Alerts.vue';
+import Alerts from '@/components/Alerts.vue';
+import Icon from '@/components/Icon.vue';
 
 import alerts from '@/assets/data/alerts.json';
 
@@ -47,12 +68,16 @@ export default {
   components: {
     Button,
     Alerts,
+    Icon,
   },
   computed: {
     alerts_comp() {
       return Object.keys(this.alerts)
         .filter((f) => this?.alerts[f]?.state > 0)
         .map((f) => ({ code: f, ...this?.alerts[f] }));
+    },
+    input_state() {
+      return this.success ? 'check_circle' : 'cancel';
     },
   },
   emits: ['itemAdded'],
@@ -63,10 +88,12 @@ export default {
       entries: null,
       delimiter: '',
       alerts: this.defaultAlerts(),
+      success: true,
     };
   },
   methods: {
     add(list, m = false) {
+      this.success = false;
       this.alerts = this.defaultAlerts();
       let invalid = false;
 
@@ -98,18 +125,30 @@ export default {
           invalid = invalid || this.alerts.entries_negative.invalidating;
         }
         if (item.entries > 10) {
-          if (/fofefa/gi.test(item.name)) { this.alerts.entries_largebutfofefa.state = true; } else this.alerts.entries_large.state = true;
+          if (/fofefa/gi.test(item.name)) {
+            this.alerts.entries_largebutfofefa.state = true;
+          } else this.alerts.entries_large.state = true;
           invalid = invalid || this.alerts.entries_large.invalidating;
         }
 
         if (!invalid) {
+          this.success = true;
           this.$emit('itemAdded', item);
-          // if (m) this.alerts.no_errors_multiple.state = true;
-          // else this.alerts.no_errors.state = true;
         }
+
+        this.active('add', m, 1);
+        this.active('remove', m, 1000);
       });
     },
+    active(a, m, t) {
+      setTimeout(() => {
+        this.$refs[
+          m ? 'success_multiple' : 'success_one'
+        ].$el.classList[a]('active');
+      }, t);
+    },
     parse(text, d) {
+      if (text === '' || d === '' || !text || !d) { return [{ name: '', entries: 1 }]; }
       const a = text.split(d);
       const b = [];
       a.forEach((e) => {
