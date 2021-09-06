@@ -4,6 +4,7 @@
   display: grid;
   gap: var(--base-size);
   grid-area: alerts;
+  max-width: calc(var(--base-size) * 100);
 }
 
 .alert {

@@ -26,10 +26,12 @@ form {
   display: grid;
   gap: calc(var(--base-size) * 2);
   grid-column: 1;
+  max-width: calc(var(--base-size) * 100);
 
-  &:not(.narrow) {
-    width: minmax(auto, calc(var(--base-size) * 100));
-    max-width: 100%;
+  @include mq(medium) {
+    &:not(.narrow) {
+      width: calc(var(--base-size) * 100);
+    }
   }
 
   & .row {

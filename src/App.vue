@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>A giveaway website</h1>
+    <h1 class="h2">A giveaway website</h1>
   </header>
   <transition name="fade">
     <main class="main" v-if="!calculating">
