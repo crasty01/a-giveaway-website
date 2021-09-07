@@ -107,7 +107,7 @@ export default {
       document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
       localStorage.setItem('darkmode', this.darkmode);
       console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
-      document.querySelector('meta#themeColor').setAttribute('content', this.darkmode ? 'hsl(240deg 10% 4%)' : 'hsl(0deg 0% 96%)');
+      document.querySelector('meta#themeColor').setAttribute('content', this.darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)');
     },
     add(item) {
       const i = this.entries.find((e) => e.name === item.name);
