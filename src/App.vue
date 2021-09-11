@@ -29,20 +29,23 @@
     </main>
   </transition>
   <transition name="fade">
-    <Calculation v-if="calculating" :entries="entries" @calcSwitch="calcSwitch"/>
+    <Calculation v-if="calculating" :entries="entries" @calcSwitch="calcSwitch" />
   </transition>
   <footer class="footer">
     <div class="info">
-      made with <Icon class="inline bold">favorite_border</Icon> <span>& vue</span> <br />
-      by &copy; <a class="author" href="https://danielvondra.tk">Daniel Vondra</a>
+      made with
+      <Icon class="inline bold">favorite_border</Icon>
+      <span>& vue</span>
+      <br />by &copy;
+      <a class="author" href="https://danielvondra.tk">Daniel Vondra</a>
     </div>
     <div class="options">
       <div v-if="!darkmode" class="darkmode">
-        <span class="mono">darkmode: </span>
+        <span class="mono">darkmode:</span>
         <Icon class="clickable inline" @click="darkmode = true">dark_mode</Icon>
       </div>
       <div v-if="darkmode" class="darkmode">
-        <span class="mono">lightmode: </span>
+        <span class="mono">lightmode:</span>
         <Icon class="clickable inline" @click="darkmode = false">light_mode</Icon>
       </div>
     </div>
@@ -50,7 +53,6 @@
 </template>
 
 <script>
-
 import Item from '@/components/Item.vue';
 import Adder from '@/components/Adder.vue';
 import Button from '@/components/Button.vue';
@@ -84,35 +86,50 @@ export default {
   watch: {
     entries: {
       handler(val) {
-        this.$scrollToEnd(this.$refs.list);
         localStorage.entries = JSON.stringify(val);
       },
       deep: true,
     },
     darkmode: {
-      handler() { this.switchModes(); },
+      handler() {
+        this.switchModes();
+      },
     },
   },
   methods: {
-    switchModes(init = false) {
+    async switchModes(init = false) {
+      document.documentElement.classList.add('notransitions');
       if (init) {
         if (localStorage.darkmode === undefined) {
-          this.darkmode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          this.darkmode = window.matchMedia(
+            '(prefers-color-scheme: dark)',
+          ).matches;
           localStorage.darkmode = this.darkmode;
         } else {
           this.darkmode = localStorage.darkmode === 'true';
         }
       }
 
-      document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
+      document.documentElement.classList[this.darkmode ? 'add' : 'remove'](
+        'darkmode',
+      );
       localStorage.setItem('darkmode', this.darkmode);
       console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
-      document.querySelector('meta#themeColor').setAttribute('content', this.darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)');
+      document
+        .querySelector('meta#themeColor')
+        .setAttribute(
+          'content',
+          this.darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)',
+        );
+      await this.$sleep(1);
+      document.documentElement.classList.remove('notransitions');
     },
-    add(item) {
+    async add(item) {
       const i = this.entries.find((e) => e.name === item.name);
       if (i) i.entries += item.entries;
       else this.entries.push(item);
+      await this.$sleep(1);
+      this.$scrollToEnd(this.$refs.list);
     },
     itemDel(e) {
       // console.log('itemDel', e);

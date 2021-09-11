@@ -5,6 +5,8 @@ import './assets/scss/all.css';
 
 const app = createApp(App);
 
+app.config.globalProperties.$sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 app.config.globalProperties.$scrollToEnd = (el, type = 'smooth') => {
   el.scrollTo({
     top: el.scrollHeight,

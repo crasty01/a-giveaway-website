@@ -17,14 +17,7 @@
     </div>
     <div class="buttons">
       <Button class="full" text="add one participant" />
-      <Icon
-        ref="success_one"
-        class="state"
-        padding
-        :size="45"
-        :success="success"
-        >{{ input_state }}</Icon
-      >
+      <Icon ref="success_one" class="state" padding :size="45" :success="success">{{ input_state }}</Icon>
     </div>
   </form>
   <form
@@ -48,8 +41,7 @@
         padding
         :size="45"
         :success="success"
-        >{{ input_state }}</Icon
-      >
+      >{{ input_state }}</Icon>
     </div>
   </form>
   <Alerts @hide="hide($event)" :alerts="alerts_comp" :key="alerts" />
@@ -137,18 +129,18 @@ export default {
         }
 
         this.active('add', m, 1);
-        this.active('remove', m, 1000);
+        this.active('remove', m, 2000);
       });
     },
     active(a, m, t) {
       setTimeout(() => {
-        this.$refs[
-          m ? 'success_multiple' : 'success_one'
-        ].$el.classList[a]('active');
+        this.$refs[m ? 'success_multiple' : 'success_one'].$el.classList[a]('active');
       }, t);
     },
     parse(text, d) {
-      if (text === '' || d === '' || !text || !d) { return [{ name: '', entries: 1 }]; }
+      if (text === '' || d === '' || !text || !d) {
+        return [{ name: '', entries: 1 }];
+      }
       const a = text.split(d);
       const b = [];
       a.forEach((e) => {
@@ -168,5 +160,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

@@ -1,11 +1,7 @@
 <template>
   <li class="item">
-    <div class="name">
-      {{ user.name }}
-    </div>
-    <div class="entries">
-      {{ user.entries }} {{ user.entries > 1 ? "entries" : "entry" }}
-    </div>
+    <div class="name">{{ user.name }}</div>
+    <div class="entries">{{ user.entries }} {{ user.entries > 1 ? "entries" : "entry" }}</div>
     <div class="actions">
       <Icon
         class="clickable sub"
@@ -17,8 +13,7 @@
         @touchcancel="stop('sub')"
         :class="{ active: interval }"
         :disabled="user.entries > 1"
-        >remove_circle_outline</Icon
-      >
+      >remove_circle_outline</Icon>
       <Icon
         class="clickable add"
         @mousedown="start('add')"
@@ -28,8 +23,7 @@
         @touchend="stop('add')"
         @touchcancel="stop('add')"
         :class="{ active: interval }"
-        >add_circle_outline</Icon
-      >
+      >add_circle_outline</Icon>
       <Icon class="clickable del" @click="del()">delete_outline</Icon>
     </div>
   </li>
@@ -52,6 +46,7 @@ export default {
         add: false,
         sub: false,
       },
+      test: false,
     };
   },
   props: {
@@ -60,7 +55,9 @@ export default {
       required: true,
     },
   },
-
+  beforeUnmount() {
+    clearInterval(this.interval);
+  },
   methods: {
     del() {
       this.$emit('itemDel', this.user.name);
@@ -75,8 +72,12 @@ export default {
       if (typeof s !== 'string') return '';
       return s.charAt(0).toUpperCase() + s.slice(1);
     },
-    start(type) {
-      if (!this.interval) {
+    async start(type) {
+      this.intervals[type] = true;
+      this[type]();
+      await this.$sleep(500);
+
+      if (!this.interval && this.intervals[type]) {
         this.time = this.default_time;
         this[type]();
         this.interval = setInterval(() => {
@@ -85,16 +86,14 @@ export default {
         }, this.time);
       }
     },
-    stop() {
-      if (this.interval) {
-        clearInterval(this.interval);
-        this.interval = false;
-      }
+    async stop(type) {
+      this.intervals[type] = false;
+      clearInterval(this.interval);
+      this.interval = false;
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>

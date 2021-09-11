@@ -16,18 +16,12 @@
           }"
           v-for="(line, index) in lines"
           :key="line"
-          >{{ line.message }}</span
-        >
+        >{{ line.message }}</span>
       </div>
     </div>
     <div class="buttons">
       <Button text="go back" class="back" @click="$emit('calcSwitch')" />
-      <Button
-        text="reset"
-        icon="refresh"
-        class="rotate"
-        @click="reload"
-      />
+      <Button text="reset" icon="refresh" class="rotate" @click="reload" />
     </div>
   </div>
 </template>
@@ -70,7 +64,7 @@ export default {
         essencial: true,
       });
       this.running = false;
-      await this.sleep(1500);
+      await this.$sleep(1500);
       this.running = true;
       for (let i = 0; i < l; i += 1) {
         if (this.running === false) return;
@@ -81,24 +75,21 @@ export default {
           essencial: false,
         });
         // eslint-disable-next-line no-await-in-loop
-        await this.sleep(this.random(200, Math.min(5000 / l, 1000)));
+        await this.$sleep(this.random(200, Math.min(5000 / l, 1000)));
       }
-      await this.sleep(500);
+      await this.$sleep(500);
       if (this.running === false) return;
       array.push({
         message: 'And the winner is:',
         essencial: true,
       });
-      await this.sleep(1000);
+      await this.$sleep(1000);
       if (this.running === false) return;
       array.push({
         message: this.weightedRandom(this.entries, 'entries')?.name,
         essencial: true,
         winner: true,
       });
-    },
-    sleep(ms) {
-      return new Promise((resolve) => setTimeout(resolve, ms));
     },
     random(min = 0, max = 1, floor = true) {
       const r = Math.random() * (max - min) + min;
