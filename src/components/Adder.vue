@@ -17,7 +17,9 @@
     </div>
     <div class="buttons">
       <Button class="full" text="add one participant" />
-      <Icon ref="success_one" class="state" padding :size="45" :success="success">{{ input_state }}</Icon>
+      <Icon ref="success_one" class="state" padding :size="45" :success="success">{{
+        input_state
+      }}</Icon>
     </div>
   </form>
   <form
@@ -35,13 +37,9 @@
     </div>
     <div class="buttons">
       <Button class="full" text="add multiple participants" />
-      <Icon
-        ref="success_multiple"
-        class="state"
-        padding
-        :size="45"
-        :success="success"
-      >{{ input_state }}</Icon>
+      <Icon ref="success_multiple" class="state" padding :size="45" :success="success">{{
+        input_state
+      }}</Icon>
     </div>
   </form>
   <Alerts @hide="hide($event)" :alerts="alerts_comp" :key="alerts" />
