@@ -1,7 +1,15 @@
 <template>
   <li class="item">
     <div class="name">{{ user.name }}</div>
-    <div class="entries">{{ user.entries }} {{ user.entries > 1 ? "entries" : "entry" }}</div>
+    <div class="entries">
+      {{ user.entries }}
+      <span class="entries-text">
+        {{ user.entries > 1 ? "entries" : "entry" }}
+      </span>
+    </div>
+    <div class="percentage">
+      {{ percentage }} %
+    </div>
     <div class="actions">
       <Icon
         class="clickable sub"
@@ -49,9 +57,18 @@ export default {
       test: false,
     };
   },
+  computed: {
+    percentage() {
+      return ((this.user.entries / this.allEntries) * 100).toFixed(1);
+    },
+  },
   props: {
     user: {
       type: Object,
+      required: true,
+    },
+    allEntries: {
+      type: Number,
       required: true,
     },
   },
@@ -95,5 +112,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

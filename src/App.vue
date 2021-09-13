@@ -12,6 +12,7 @@
               v-for="item in entries"
               :user="item"
               :key="item"
+              :allEntries="allEntries"
               @itemDel="itemDel($event)"
               @itemSub="itemSub($event)"
               @itemAdd="itemAdd($event)"
@@ -74,6 +75,11 @@ export default {
       calculating: false,
       darkmode: true,
     };
+  },
+  computed: {
+    allEntries() {
+      return Object.values(this.entries).reduce((acc, e) => acc + e.entries, 0);
+    },
   },
   mounted() {
     // console.log(localStorage);

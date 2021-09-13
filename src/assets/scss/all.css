@@ -349,10 +349,18 @@ body {
   border-radius: var(--base-size);
   padding: var(--base-size) calc(var(--base-size) * 2);
   display: grid;
-  gap: var(--base-size);
-  grid-template-columns: minmax(3rem, auto) 8rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  gap: calc(var(--base-size) * 2);
+  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
   justify-items: left;
   align-items: center;
+}
+@media only screen and (min-width: 40em) {
+  .item, .alert, form input, form textarea, :where(.button) {
+    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  }
+  .item .entries-text, .alert .entries-text, form input .entries-text, form textarea .entries-text, :where(.button) .entries-text {
+    display: inline;
+  }
 }
 .item > .name, .alert > .name, form input > .name, form textarea > .name, :where(.button) > .name, .item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries {
   white-space: nowrap;
@@ -360,8 +368,16 @@ body {
   text-overflow: ellipsis;
   width: 100%;
 }
-.item > .name.entries, .item > .entries.entries, .alert > .entries.entries, form input > .entries.entries, form textarea > .entries.entries, :where(.button) > .entries.entries {
+.item .entries, .alert .entries, form input .entries, form textarea .entries, :where(.button) .entries {
   padding-left: 0.5rem;
+}
+.item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
+  display: none;
+}
+@media only screen and (min-width: 40em) {
+  .item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
+    display: inline;
+  }
 }
 .item:hover > .actions, .alert:hover > .actions, form input:hover > .actions, form textarea:hover > .actions, :hover:where(.button) > .actions {
   opacity: 1;

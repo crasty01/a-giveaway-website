@@ -1,3 +1,5 @@
+@use '../abstracts/mixins.scss' as *;
+
 .item {
   width: 100%;
   // background-color: var(--clr-dark-800);
@@ -5,19 +7,35 @@
   border-radius: var(--base-size);
   padding: var(--base-size) calc(var(--base-size) * 2);
   display: grid;
-  gap: var(--base-size);
-  grid-template-columns: minmax(3rem, auto) 8rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  gap: calc(var(--base-size) * 2);
+  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
   justify-items: left;
   align-items: center;
 
-  & > .name, > .entries {
+  @include mq(small) {
+    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+
+    & .entries-text {
+      display: inline;
+    }
+  }
+
+  & > .name, & > .entries {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+  }
 
-    &.entries {
-      padding-left: .5rem;
+  & .entries {
+    padding-left: .5rem;
+
+    & .entries-text {
+      display: none;
+
+      @include mq(small) {
+        display: inline;
+      }
     }
   }
 
