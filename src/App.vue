@@ -25,6 +25,11 @@
               text="Roll the dice - figuratively speaking"
               @click="calcSwitch()"
             />
+            <Button
+              class="primary full"
+              text="Roll the dice - figuratively speaking"
+              @click="calcSwitch()"
+            />
           </div>
         </section>
         <Adder @itemAdded="add($event)" />
