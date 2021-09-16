@@ -82,6 +82,12 @@
     }
   }
 
+  &.auto {
+    & .btn-icon {
+      justify-self: right;
+    }
+  }
+
   &.half {
     width: 50%;
     & .btn-icon {
@@ -99,6 +105,15 @@
 
   .darkmode & {
     border-color: var(--bg);
+  }
+}
+
+:where(.buttons) {
+  display: flex;
+  gap: calc(var(--base-size) * 2);
+  
+  & > .button {
+    flex-grow: 1;
   }
 }
 

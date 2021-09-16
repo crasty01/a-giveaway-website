@@ -522,6 +522,9 @@ body {
 :where(.button).full .btn-icon {
   justify-self: right;
 }
+:where(.button).auto .btn-icon {
+  justify-self: right;
+}
 :where(.button).half {
   width: 50%;
 }
@@ -535,6 +538,14 @@ body {
 }
 .darkmode :where(.button) {
   border-color: var(--bg);
+}
+
+:where(.buttons) {
+  display: flex;
+  gap: calc(var(--base-size) * 2);
+}
+:where(.buttons) > .button {
+  flex-grow: 1;
 }
 
 @keyframes arrow-out {

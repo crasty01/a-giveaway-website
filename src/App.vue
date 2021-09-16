@@ -19,11 +19,13 @@
               class="list-item"
             />
           </ul>
-          <Button
-            class="primary full"
-            text="Roll the dice - figuratively speaking"
-            @click="calcSwitch()"
-          />
+          <div class="buttons">
+            <Button
+              class="primary full"
+              text="Roll the dice - figuratively speaking"
+              @click="calcSwitch()"
+            />
+          </div>
         </section>
         <Adder @itemAdded="add($event)" />
       </div>
