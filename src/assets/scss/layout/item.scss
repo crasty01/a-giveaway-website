@@ -1,0 +1,90 @@
+@use '../abstracts/mixins.scss' as *;
+
+.item {
+  width: 100%;
+  // background-color: var(--clr-dark-800);
+  border: solid var(--border-width) var(--clr-dark-100);
+  border-radius: var(--base-size);
+  padding: var(--base-size) calc(var(--base-size) * 2);
+  display: grid;
+  gap: calc(var(--base-size) * 2);
+  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  justify-items: left;
+  align-items: center;
+
+  @include mq(small) {
+    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+
+    & .entries-text {
+      display: inline;
+    }
+  }
+
+  & > .name, & > .entries {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
+
+  & .entries {
+    padding-left: .5rem;
+
+    & .entries-text {
+      display: none;
+
+      @include mq(small) {
+        display: inline;
+      }
+    }
+  }
+
+  &:hover {
+    // background-color: var(--clr-dark-700);
+
+    & > .actions {
+      opacity: 1;
+      transition: none;
+      //transition: opacity 150ms ease-in;
+    }
+  }
+
+  & > .actions {
+    justify-self: right;
+    user-select: none;
+    display: grid;
+    gap: var(--base-size);
+    grid-template-columns: auto auto auto;
+    justify-items: center;
+    align-items: center;
+    opacity: .3;
+    transition: opacity 150ms ease-in;
+    //transition: none;
+
+    &:hover {
+      color: var(--clr-dark-500);
+
+      .darkmode & {
+        color: var(--clr-light-300);
+      }
+    }
+
+    & > .icon {
+      transition: color 150ms ease-in;
+
+      &:hover {
+        color: var(--clr-dark-100);
+        transition: none;
+
+        .darkmode & {
+          color: var(--clr-light-800);
+        }
+      }
+    }
+  }
+
+  .darkmode & {
+    border-color: var(--clr-dark-400);
+    // background-color: var(--clr-dark-400);
+  }
+}

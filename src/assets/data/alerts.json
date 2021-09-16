@@ -1,0 +1,89 @@
+{
+  "name_short": {
+    "name": "danger_name_short",
+    "state": false,
+    "response": "I did not finish the request. The \"name\" was too short.",
+    "invalidating": true,
+    "type": "danger",
+    "show": "true"
+  },
+  "name_long": {
+    "name": "warning_name_long",
+    "state": false,
+    "response": "The \"name\" was too long. If it was a mistake, delete it in the list.",
+    "invalidating": false,
+    "type": "warning",
+    "show": "true"
+  },
+  "name_longdelimiter": {
+    "name": "warning_name_long_multiple",
+    "state": false,
+    "response": "One of names in \"names\" was too long. If it was a mistake, delete it in the list. Maybe the \"delimiter\" was wrong?",
+    "invalidating": false,
+    "type": "warning",
+    "show": "true"
+  },
+  "name_notstring": {
+    "name": "danger_name_notstring",
+    "state": false,
+    "response": "I did not finish the request. Somehow the \"name\" is not a string. How were you able to do that?",
+    "invalidating": true,
+    "type": "danger",
+    "show": "true"
+  },
+  "entries_notnumber": {
+    "name": "danger_entries_not_number",
+    "state": false,
+    "response": "I did not finish the request. Somehow the \"entries\" is not a number. How were you able to do that?",
+    "invalidating": true,
+    "type": "danger",
+    "show": "true"
+  },
+  "entries_negative": {
+    "name": "danger_entries_negative",
+    "state": false,
+    "response": "I did not finish the request. Input \"entries\" should be possitive number.",
+    "invalidating": true,
+    "type": "danger",
+    "show": "true"
+  },
+  "entries_large": {
+    "name": "danger_entries_large",
+    "state": false,
+    "response": "Are you sure \"entries\" were ok? That was pretty big number.",
+    "invalidating": false,
+    "type": "warning",
+    "show": "true"
+  },
+  "entries_largebutfofefa": {
+    "name": "danger_entries_largebutfofefa",
+    "state": false,
+    "response": "Isn't \"entries\" way too big? Oh wait, it was fofefa, then everything is alright. ",
+    "invalidating": false,
+    "type": "warning",
+    "show": "true"
+  },
+  "entries_zero": {
+    "name": "warning_entries_zero",
+    "state": false,
+    "response": "Input \"entries\" were zero, nothing happend. Why should it, right?",
+    "invalidating": true,
+    "type": "warning",
+    "show": "true"
+  },
+  "no_errors": {
+    "name": "success_noerrors_single",
+    "state": false,
+    "response": "user added ✓",
+    "invalidating": false,
+    "type": "success",
+    "show": "true"
+  },
+  "no_errors_multiple": {
+    "name": "success_noerrors_multiple",
+    "state": false,
+    "response": "users added ✓",
+    "invalidating": false,
+    "type": "success"
+  }
+}

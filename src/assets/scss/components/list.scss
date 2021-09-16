@@ -1,0 +1,40 @@
+@use '../abstracts/mixins.scss' as *;
+
+.list {
+  grid-area: list;
+  align-self: start;
+  display: grid;
+  gap: calc(var(--base-size) * 2);
+  max-width: calc(var(--base-size) * 100);
+
+  & > ul {
+    display: grid;
+    align-content: flex-start;
+    gap: var(--base-size);
+      
+
+    /*
+    @include mq(medium) {
+      height: 25.5rem;
+    }*/
+  }
+
+  & .list-item {
+    background-color: var(--clr-dark-800);
+
+    .darkmode & {
+      background-color: var(--clr-dark-200);
+      border-color: var(--clr-dark-200);
+    }
+  }
+  
+
+  &.large {
+    & > ul {
+      overflow-y: scroll;
+      padding-right: calc(var(--base-size) * 2);
+      height: auto;
+      max-height: min(calc(45px * 7 + var(--base-size) * 6), 75vh);
+    }
+  }
+}

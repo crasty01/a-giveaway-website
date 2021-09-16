@@ -1,0 +1,11 @@
+:where(section) {
+  --section-spacing: 1.6rem;
+
+  & *:where(.text) {
+    --section-spacing: 0.6rem;
+  }
+
+  &:first-child:not(.hero) {
+    // padding-top: 8rem;
+  }
+}

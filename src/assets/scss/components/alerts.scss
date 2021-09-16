@@ -1,0 +1,49 @@
+@use '../layout/item.scss';
+
+.alerts {
+  display: grid;
+  gap: var(--base-size);
+  grid-area: alerts;
+  max-width: calc(var(--base-size) * 100);
+}
+
+.alert {
+  @extend .item;
+
+  grid-template-columns: 1fr;
+  position: relative;
+  padding-right: calc(var(--base-size) * 4);
+  color: var(--clr-dark-100);
+
+  &.danger {
+    background-color: var(--clr-special-danger);
+    border-color: var(--clr-special-danger);
+  }
+
+  &.warning {
+    background-color: var(--clr-special-warning);
+    border-color: var(--clr-special-warning);
+  }
+
+  &.success {
+    background-color: var(--clr-special-success);
+    border-color: var(--clr-special-success);
+  }
+
+  &.info {
+    background-color: var(--clr-special-info);
+    border-color: var(--clr-special-info);
+  }
+
+  & > .icon {
+    position: absolute;
+    right: var(--base-size);
+    top: var(--base-size);
+    opacity: 0.3;
+    transition: opacity 150ms ease-in;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

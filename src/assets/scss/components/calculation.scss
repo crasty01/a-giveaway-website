@@ -1,0 +1,99 @@
+.calculation {
+  display: grid;
+  gap: calc(var(--base-size) * 2);
+  grid-template-rows: 1fr auto;
+  align-content: flex-start;
+  // align-self: normal;
+
+  & > .wrapper {
+    background-color: var(--clr-light-700);
+    border-radius: var(--base-size);
+    align-self: stretch;
+    max-width: calc(var(--base-size) * 100);
+    height: calc(var(--base-size) * 40);
+    display: grid;
+    gap: calc(var(--base-size) * 0);
+    align-content: flex-start;
+    border: solid  var(--clr-light-700) calc(var(--base-size) * 2);
+    font-weight: 200;
+    overflow: auto;
+
+    .darkmode & {
+      background-color: var(--clr-dark-200);
+      border-color: var(--clr-dark-200);
+    }
+
+    & > .content {
+      & > .line {
+        display: block;
+
+        &.essencial {
+          font-size: 1.2rem;
+          margin-bottom: 1rem;
+          margin-top: .5rem;
+          font-weight: 500;
+        }
+
+        &.break {
+          margin-top: 3rem;
+        }
+
+        &.winner {
+          font-size: 2rem;
+          margin-bottom: .5rem;
+          font-weight: 900;
+          margin-top: .5rem;
+          // margin-bottom: 5rem;
+          
+          &::before, &::after {
+            font-size: 1rem;
+            font-weight: 100;
+            transform: translateY(-.5rem);
+            display: inline-block;
+          }
+
+          &::before {
+            content: '(ﾉ◕ヮ◕)ﾉ :･ﾟ✧';
+          }
+
+          &::after {
+            content: '✧ﾟ･: ヽ(◕ヮ◕ヽ)';
+          }
+        }
+      
+        &::after {
+          content: "";
+          //margin-left: -.6rem;
+        }
+
+        &.loading {
+          &::after {
+            animation: dots 500ms linear infinite;
+          }
+        }
+      }
+    }
+  }
+
+  & .buttons {
+    display: flex;
+    gap: calc(var(--base-size) * 1);
+  }
+}
+
+
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
