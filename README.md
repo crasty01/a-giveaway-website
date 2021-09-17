@@ -8,10 +8,17 @@ The PWA is built on the vue.js framework and It's hosted at https://giveawayplat
 
 ## Project setup
 
+### for vue:
 ```
-npm install
+npm i
 npm run serve
 npm run build
+```
+
+### for scss/sass compiler:
+```
+npm i -g sass
+sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 ```
 
 ## Planned enhancement
