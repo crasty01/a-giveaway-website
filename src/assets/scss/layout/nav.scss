@@ -1,0 +1,5 @@
+:where(.nav) {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--base-size) * 2)
+}

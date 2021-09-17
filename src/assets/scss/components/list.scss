@@ -20,11 +20,11 @@
   }
 
   & .list-item {
-    background-color: var(--clr-dark-800);
+    background-color: hsla(var(--clr-dark-800), 1);
 
     .darkmode & {
-      background-color: var(--clr-dark-200);
-      border-color: var(--clr-dark-200);
+      background-color: hsla(var(--clr-dark-200), 1);
+      border-color: hsla(var(--clr-dark-200), 1);
     }
   }
   

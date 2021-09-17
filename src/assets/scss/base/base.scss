@@ -1,23 +1,23 @@
 
 
 body {
-  background-color: var(--clr-light-800);
-  color: var(--clr-dark-100);
+  background-color: hsla(var(--clr-light-800), 1);
+  color: hsla(var(--clr-dark-100), 1);
 
   .darkmode & {
-    background-color: var(--clr-dark-100);
-    color: var(--clr-light-700);
+    background-color: hsla(var(--clr-dark-100), 1);
+    color: hsla(var(--clr-light-700), 1);
   }
 }
 
 ::-moz-selection {
-  color: var(--clr-dark-200);
-  background-color: var(--clr-accent-700);
+  color: hsla(var(--clr-dark-200), 1);
+  background-color: hsla(var(--clr-accent-700), 1);
 }
 
 ::selection {
-  color: var(--clr-dark-200);
-  background-color: var(--clr-accent-700);
+  color: hsla(var(--clr-dark-200), 1);
+  background-color: hsla(var(--clr-accent-700), 1);
 }
 
 // SCROLLBAR ----------------------------------
@@ -29,21 +29,21 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: var(--clr-light-600);
+  background: hsla(var(--clr-light-600), 1);
   border-radius: var(--border-width);
 
   .darkmode & {
-    background: var(--clr-dark-400);
+    background: hsla(var(--clr-dark-400), 1);
   }
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--clr-accent-500);
+  background: hsla(var(--clr-accent-500), 1);
   border-radius: var(--border-width);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--clr-accent-600);
+  background: hsla(var(--clr-accent-600), 1);
 }

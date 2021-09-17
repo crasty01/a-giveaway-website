@@ -13,7 +13,7 @@
   grid-template-columns: 1fr;
   position: relative;
   padding-right: calc(var(--base-size) * 4);
-  color: var(--clr-dark-100);
+  color: hsla(var(--clr-dark-100), 1);
 
   &.danger {
     background-color: var(--clr-special-danger);

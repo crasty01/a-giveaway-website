@@ -1,7 +1,7 @@
 <template>
   <Header/>
   <router-view/>
-  <Footer/>
+  <Footer @modeChage="modeChage($event)"/>
 </template>
 
 <script>
@@ -13,25 +13,44 @@ export default {
     Header,
     Footer,
   },
-  inject: ['supabase'],
-  data() {
-    return {
-      user: null,
-    };
-  },
+  inject: ['supabase', 'h', 's'],
   created() {
+    this.s.darkmode = this.h.darkmode.getInitial();
+    this.h.darkmode.modeChage(this.s.darkmode, this);
+  },
+  mounted() {
     this.supabase.auth.onAuthStateChange((event, session) => {
       switch (event) {
         case 'SIGNED_IN':
-          this.user = this.supabase.auth.user();
+          this.s.user = this.supabase.auth.user();
+          console.log('SIGNED_IN');
+          // this.$nextTick(() => console.log(this.s.user));
           break;
         case 'SIGNED_OUT':
-          this.user = null;
+          this.s.user = null;
+          console.log('SIGNED_OUT');
           break;
         default:
           console.warn('something went wrong', event, session);
       }
     });
   },
+  methods: {
+    modeChage(darkmode) {
+      this.s.darkmode = darkmode;
+      this.h.darkmode.modeChage(darkmode, this);
+    },
+  },
 };
 </script>
+
+<style lang="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 150ms ease-in;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

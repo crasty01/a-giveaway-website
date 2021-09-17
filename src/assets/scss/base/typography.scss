@@ -28,7 +28,7 @@ body {
 }
 
 :where(svg) {
-  fill: var(--clr-dark-100);
+  fill: hsla(var(--clr-dark-100), 1);
 
   :where(*) {
     fill: inherit;
@@ -37,4 +37,12 @@ body {
 
 article {
   max-width: 75ch;
+}
+
+:where(a:not(.underline)) {
+  text-decoration: none;
+}
+
+strong, b {
+  font-weight: 900;
 }

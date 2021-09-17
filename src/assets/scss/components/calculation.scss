@@ -6,7 +6,7 @@
   // align-self: normal;
 
   & > .wrapper {
-    background-color: var(--clr-light-700);
+    background-color: hsla(var(--clr-light-700), 1);
     border-radius: var(--base-size);
     align-self: stretch;
     max-width: calc(var(--base-size) * 100);
@@ -14,13 +14,13 @@
     display: grid;
     gap: calc(var(--base-size) * 0);
     align-content: flex-start;
-    border: solid  var(--clr-light-700) calc(var(--base-size) * 2);
+    border: solid  hsla(var(--clr-light-700), 1) calc(var(--base-size) * 2);
     font-weight: 200;
     overflow: auto;
 
     .darkmode & {
-      background-color: var(--clr-dark-200);
-      border-color: var(--clr-dark-200);
+      background-color: hsla(var(--clr-dark-200), 1);
+      border-color: hsla(var(--clr-dark-200), 1);
     }
 
     & > .content {

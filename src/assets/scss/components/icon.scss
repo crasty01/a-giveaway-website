@@ -23,7 +23,7 @@
 
   &.padding {
     padding: var(--base-size);
-    //background-color: var(--clr-light-600);
+    //background-color: hsla(var(--clr-light-600), 1);
     border-radius: var(--base-size);
     user-select: none;
   }
@@ -31,11 +31,11 @@
   &.state {
     //transition: background-color 2000ms ease-in;
     transition: background-color 150ms ease-in-out;
-    background-color: var(--clr-light-600);
+    background-color: hsla(var(--clr-light-600), 1);
 
     .darkmode & {
-      background-color: var(--clr-dark-300);
-      color: var(--clr-dark-100);
+      background-color: hsla(var(--clr-dark-300), 1);
+      color: hsla(var(--clr-dark-100), 1);
     }
 
     & > span {

@@ -2,8 +2,8 @@
 @use '../layout/item.scss';
 
 :where(.button) {
-  --bg: var(--clr-accent-700);
-  color: var(--clr-dark-100);
+  --bg: hsla(var(--clr-accent-700), 1);
+  color: hsla(var(--clr-dark-100), 1);
 
   @extend .item;
   grid-template-columns: auto 1fr;
@@ -32,7 +32,7 @@
   }
 
   &:hover {
-    --bg: var(--clr-accent-600);
+    --bg: hsla(var(--clr-accent-600), 1);
 
     & .arrow > svg, &:focus > svg {
       animation:
@@ -62,16 +62,28 @@
   }
 
   &.primary {
-    --bg: var(--clr-accent-400);
-    color: var(--clr-light-800);
+    --bg: hsla(var(--clr-accent-400), 1);
+    color: hsla(var(--clr-light-800), 1);
 
     &:hover {
-      --bg: var(--clr-accent-300);
+      --bg: hsla(var(--clr-accent-300), 1);
     }
 
     & .arrow {
       transform: rotate(-90deg);
       filter: invert(99%) sepia(15%) saturate(0%) hue-rotate(233deg) brightness(112%) contrast(92%);
+    }
+  }
+
+  &.blank {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    display: block;
+    color: inherit;
+
+    &.inline {
+      display: inline-block;
     }
   }
 

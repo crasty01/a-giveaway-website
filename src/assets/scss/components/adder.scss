@@ -84,7 +84,7 @@ form {
 
 :where(input, textarea) {
   padding: var(--base-size) calc(var(--base-size) * 2);
-  border: solid 2px var(--clr-light-700);
+  border: solid 2px hsla(var(--clr-light-700), 1);
   border-radius: 0.2rem;
   max-height: 12rem;
 
@@ -92,7 +92,7 @@ form {
   &:focus-within,
   &:active,
   :focus-visible {
-    border: solid 2px var(--clr-accent-700);
+    border: solid 2px hsla(var(--clr-accent-700), 1);
     outline: none;
   }
 }
