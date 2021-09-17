@@ -1,11 +1,19 @@
 import { reactive } from 'vue';
 
-export default {
+const store = reactive({
+  user: null,
+  entries: {},
+  settings: {
+    darkmode: {
+      value: true,
+    },
+  },
+});
+
+const storePlugin = {
   install: (app) => {
-    const store = reactive({
-      user: null,
-      darkmode: true,
-    });
     app.provide('s', store);
   },
 };
+
+export { store, storePlugin };

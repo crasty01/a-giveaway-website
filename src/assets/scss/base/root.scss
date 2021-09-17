@@ -3,9 +3,10 @@
 :root {
   --section-spacing: 3.5rem;
   --wrapper-padding: 1rem;
-  --max-width: 1300px;
   --border-width: 2px;
   --base-size: .5rem;
+  //--max-width: calc(var(--base-size) * 100);
+  --max-width: 1300px;
 
   @include mq(small) {
     --section-spacing: 10rem;

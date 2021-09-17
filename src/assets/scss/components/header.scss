@@ -1,0 +1,13 @@
+@use '../abstracts/mixins.scss' as *;
+
+.header {
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "logo profile" "nav nav";
+  gap: calc(var(--base-size) * 1) calc(var(--base-size) * 4);
+  z-index: 10;
+
+  @include mq(small) {
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: "logo nav profile";
+  }
+}

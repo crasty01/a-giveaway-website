@@ -33,6 +33,8 @@
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 
+import router from '@/router/index';
+
 export default {
   components: {
     Button,
@@ -57,6 +59,8 @@ export default {
     async signOut() {
       const { error } = await this.supabase.auth.signOut();
       if (error) console.error(error);
+
+      if (this.$route.name === 'Giveaways') router.push('/');
     },
     closeProfile(e) {
       this.isProfileOpen = false;

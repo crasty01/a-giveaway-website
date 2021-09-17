@@ -15,8 +15,7 @@ export default {
   },
   inject: ['supabase', 'h', 's'],
   created() {
-    this.s.darkmode = this.h.darkmode.getInitial();
-    this.h.darkmode.modeChage(this.s.darkmode, this);
+    this.modeChage(this.h.darkmode.getInitial());
   },
   mounted() {
     this.supabase.auth.onAuthStateChange((event, session) => {
@@ -37,8 +36,8 @@ export default {
   },
   methods: {
     modeChage(darkmode) {
-      this.s.darkmode = darkmode;
-      this.h.darkmode.modeChage(darkmode, this);
+      this.s.settings.darkmode.value = darkmode;
+      this.h.darkmode.modeChage();
     },
   },
 };

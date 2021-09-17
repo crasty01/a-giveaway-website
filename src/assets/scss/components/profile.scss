@@ -3,6 +3,12 @@
 .profile {
   position: relative;
   cursor: pointer;
+  grid-area: profile;
+  z-index: 100;
+
+  //display: grid;
+  //align-content: center;
+  align-self: center;
 
 
   & > .short {
@@ -56,14 +62,17 @@
     position: absolute;
     right: 0;
     top: calc(100% + var(--base-size) * 2);
-    color: var(--text-color);
-    width: auto;
+    color: var(--text-color);;
     border: solid var(--border-width) var(--border-color);
     background-color: var(--bg-color);
     border-radius: var(--base-size);
     padding: var(--base-size) 0;
+
+    width: max-content;
+    min-width: 8rem;
+    max-width: calc(100vw - var(--wrapper-padding) * 2 - 8px);
     
-    white-space: nowrap;
+    //white-space: nowrap;
     
     & > .list {
       gap: 0;

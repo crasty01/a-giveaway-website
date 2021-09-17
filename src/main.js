@@ -3,7 +3,7 @@ import VueClickAway from 'vue3-click-away';
 import App from './App.vue';
 import router from './router';
 import client from './client';
-import store from './store';
+import { storePlugin } from './store';
 import helpers from './helpers';
 
 import './assets/scss/all.css';
@@ -13,7 +13,7 @@ const app = createApp(App);
 
 app.use(VueClickAway);
 app.use(router);
-app.use(store);
+app.use(storePlugin);
 app.use(helpers);
 app.use(client, {
   url: 'https://jkmkusfedyhgoqehggot.supabase.co',

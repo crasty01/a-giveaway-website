@@ -1,6 +1,13 @@
+import { store } from './store';
+
 export default {
   install: (app) => {
     const helpers = {
+      others: {
+        sleep(ms) {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        },
+      },
       darkmode: {
         getInitial() {
           if (localStorage.darkmode === undefined) {
@@ -11,19 +18,28 @@ export default {
           }
           return localStorage.darkmode === 'true';
         },
-        modeChage(darkmode, v) {
+        async modeChage() {
           document.documentElement.classList.add('notransitions');
-          document.documentElement.classList[darkmode ? 'add' : 'remove']('darkmode');
-          localStorage.setItem('darkmode', darkmode);
+          document.documentElement.classList[store.settings.darkmode.value ? 'add' : 'remove']('darkmode');
+          localStorage.setItem('darkmode', store.settings.darkmode.value);
           document
             .querySelector('meta#themeColor')
             .setAttribute(
               'content',
-              darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)',
+              store.settings.darkmode.value ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)',
             );
-          v.$nextTick(() => {
-            document.documentElement.classList.remove('notransitions');
-          });
+          await helpers.others.sleep(2);
+          document.documentElement.classList.remove('notransitions');
+        },
+      },
+      entries: {
+        parse(a) {
+          console.log(a);
+          return a;
+        },
+        add(a) {
+          console.log(a);
+          return a;
         },
       },
     };
