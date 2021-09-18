@@ -34,12 +34,6 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 
 ## Working on version 2.0.0
 
-- better file structure
-- enhanced components
-- connection to supabase for profile and data management
-- better animations
-- incorporation of issued enhancement
-
 - [x] Global reactive variable store
 - [x] Login with supabase
 - [x] Getting user info (avatar, name)
@@ -50,3 +44,11 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [ ] Filtering data from db
 - [ ] Sharing giveaway lists
 - [ ] ...
+
+<br/>
+
+- better file structure
+- enhanced components
+- connection to supabase for profile and data management
+- better animations
+- incorporation of issued enhancement
