@@ -37,7 +37,6 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [x] Global reactive variable store
 - [x] Login with supabase
 - [x] Getting user info (avatar, name)
-- [ ] Saving data locally (better way)
 - [ ] Entries sorting (name, number of entries ...)
 - [ ] User settings
 - [ ] Saving data to db
