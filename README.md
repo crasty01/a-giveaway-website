@@ -32,11 +32,23 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [ ] Filtering users by name, percentage ...
 - [ ] Sharing lists
 
-## Working on:
+## Working on version 2.0.0
 
-version 2.0.0:
+- [x] Global reactive variable store
+- [x] Login with supabase
+- [x] Getting user info (avatar, name)
+- [ ] Saving data locally (better way)
+- [ ] Entries sorting (name, number of entries ...)
+- [ ] User settings
+- [ ] Saving data to db
+- [ ] Filtering data from db
+- [ ] Sharing giveaway lists
+- [ ] ...
+
+<br/>
+
 - better file structure
 - enhanced components
 - connection to supabase for profile and data management
 - better animations
-- incorporation of issued enhancement 
+- incorporation of issued enhancement
