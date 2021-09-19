@@ -14,6 +14,11 @@ const routes = [
     component: Home,
   },
   {
+    path: '/callback',
+    name: 'Callback',
+    redirect: '/',
+  },
+  {
     path: '/about',
     name: 'About',
     component: () => import('@/views/About.vue'),

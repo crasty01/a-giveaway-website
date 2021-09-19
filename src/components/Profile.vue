@@ -53,7 +53,10 @@ export default {
   },
   methods: {
     async signIn() {
-      const { error } = this.supabase.auth.signIn({ provider: 'twitch' });
+      const { error } = this.supabase.auth.signIn(
+        { provider: 'twitch' },
+        { redirectTo: 'https://a-giveaway-website-git-v200-crasty01.vercel.app/callback' },
+      );
       if (error) console.error(error);
     },
     async signOut() {
