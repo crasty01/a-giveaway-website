@@ -29,6 +29,11 @@ const routes = [
     component: () => import('@/views/Giveaways.vue'),
     beforeEnter: [checkAuth],
   },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: () => import('@/views/Settings.vue'),
+  },
 ];
 
 const router = createRouter({

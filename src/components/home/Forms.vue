@@ -12,7 +12,7 @@
     </div>
     <div class="buttons">
       <Button class="full">add one participant</Button>
-      <Icon ref="success_one" class="state" padding :size="45" :success="success">{{ input_state }}</Icon>
+      <Icon :title="input_title" ref="success_one" class="state" padding :size="45" :success="success">{{ input_state }}</Icon>
     </div>
   </form>
   <form @submit.prevent="h.entries.add(h.entries.parse(names), true)" autocomplete="off">
@@ -22,7 +22,7 @@
     </div>
     <div class="buttons">
       <Button class="full">add multiple participants</Button>
-      <Icon
+      <Icon :title="input_title"
         ref="success_multiple"
         class="state"
         padding
@@ -54,6 +54,9 @@ export default {
   computed: {
     input_state() {
       return this.success ? 'check_circle' : 'cancel';
+    },
+    input_title() {
+      return this.success ? 'success' : 'failure';
     },
   },
   methods: {

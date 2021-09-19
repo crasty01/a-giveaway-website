@@ -7,6 +7,9 @@ const store = reactive({
     darkmode: {
       value: true,
     },
+    textOnly: {
+      value: false,
+    },
   },
 });
 

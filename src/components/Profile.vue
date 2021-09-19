@@ -1,7 +1,7 @@
 <template>
   <Button v-if="!s.user" class="primary" @click="signIn">sign in with twitch</Button>
   <div v-if="s.user" class="profile">
-    <button class="button blank short" :class="{ open: isProfileOpen }" @click.prevent="isProfileOpen ? closeProfile($event) : openProfile()">
+    <button class="button blank short block" :class="{ open: isProfileOpen }" @click.prevent="isProfileOpen ? closeProfile($event) : openProfile()">
       <img class="profile--picture" :src="s.user.user_metadata.avatar_url" alt="profile picture" />
       <Icon class="dropdown" :size="32">{{ isProfileOpen ? "arrow_drop_up" : "arrow_drop_down" }}</Icon>
     </button>
@@ -14,13 +14,13 @@
         </div>
         <div class="list">
           <ul role="list">
-            <li><router-link to="giveaways">my giveaways</router-link></li>
+            <li><router-link to="/giveaways">my giveaways</router-link></li>
           </ul>
         </div>
         <div class="list">
           <ul role="list">
             <li>
-              <Button class="button blank" @click="signOut" icon=" ">sign out</Button>
+              <Button class="button blank full" @click="signOut" icon=" ">sign out</Button>
             </li>
           </ul>
         </div>
