@@ -86,7 +86,10 @@ export default {
         this.success = false;
         this.$emit('alert', e.errors, m ? input.last : true);
       });
-      if (validated) this.h.entries.add(validated);
+      if (validated) {
+        this.h.entries.add(validated);
+        this.$emit('alert', [], m ? input.last : true);
+      }
 
       // success + remove
       this.show[m ? 'multiple' : 'single'] = true;
