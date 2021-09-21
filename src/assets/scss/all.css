@@ -480,10 +480,10 @@ body {
   opacity: 0;
 }
 :where(.icon).state.active {
-  background-color: var(--clr-special-danger);
+  background-color: hsla(var(--clr-special-danger), 1);
 }
 :where(.icon).state.active.success {
-  background-color: var(--clr-special-success);
+  background-color: hsla(var(--clr-special-success), 1);
 }
 :where(.icon).state.active > span {
   opacity: 1;
@@ -755,20 +755,20 @@ form .buttons {
   color: hsla(var(--clr-dark-100), 1);
 }
 .alert.danger {
-  background-color: var(--clr-special-danger);
-  border-color: var(--clr-special-danger);
+  background-color: hsla(var(--clr-special-danger), 1);
+  border-color: hsla(var(--clr-special-danger), 1);
 }
 .alert.warning {
-  background-color: var(--clr-special-warning);
-  border-color: var(--clr-special-warning);
+  background-color: hsla(var(--clr-special-warning), 1);
+  border-color: hsla(var(--clr-special-warning), 1);
 }
 .alert.success {
-  background-color: var(--clr-special-success);
-  border-color: var(--clr-special-success);
+  background-color: hsla(var(--clr-special-success), 1);
+  border-color: hsla(var(--clr-special-success), 1);
 }
 .alert.info {
-  background-color: var(--clr-special-info);
-  border-color: var(--clr-special-info);
+  background-color: hsla(var(--clr-special-info), 1);
+  border-color: hsla(var(--clr-special-info), 1);
 }
 .alert > .icon {
   position: absolute;

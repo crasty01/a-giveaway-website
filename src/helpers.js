@@ -33,13 +33,22 @@ export default {
         },
       },
       entries: {
-        parse(a) {
-          console.log(a);
-          return a;
+        parse(input = '') {
+          const delimiter = new RegExp(`[${store.settings.delimiter.value}]+`, 'gi');
+          return input.trim().replace(delimiter, '$').split('$');
         },
-        add(a) {
-          console.log(a);
-          return a;
+        fromArray(input = []) {
+          return input.reduce((o, e) => {
+            const n = { ...o };
+            if (!n[e]) n[e] = 0;
+            n[e] += 1;
+            return n;
+          }, {});
+        },
+        add(input) {
+          const old = store.entries.find((e) => e.name === input.name);
+          if (old) old.entries += input.entries;
+          else store.entries.push(input);
         },
       },
     };

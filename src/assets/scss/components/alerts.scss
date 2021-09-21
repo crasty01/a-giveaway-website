@@ -16,23 +16,23 @@
   color: hsla(var(--clr-dark-100), 1);
 
   &.danger {
-    background-color: var(--clr-special-danger);
-    border-color: var(--clr-special-danger);
+    background-color: hsla(var(--clr-special-danger) ,1);
+    border-color: hsla(var(--clr-special-danger) ,1);
   }
 
   &.warning {
-    background-color: var(--clr-special-warning);
-    border-color: var(--clr-special-warning);
+    background-color: hsla(var(--clr-special-warning) ,1);
+    border-color: hsla(var(--clr-special-warning) ,1);
   }
 
   &.success {
-    background-color: var(--clr-special-success);
-    border-color: var(--clr-special-success);
+    background-color: hsla(var(--clr-special-success) ,1);
+    border-color: hsla(var(--clr-special-success) ,1);
   }
 
   &.info {
-    background-color: var(--clr-special-info);
-    border-color: var(--clr-special-info);
+    background-color: hsla(var(--clr-special-info) ,1);
+    border-color: hsla(var(--clr-special-info) ,1);
   }
 
   & > .icon {

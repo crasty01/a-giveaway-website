@@ -48,10 +48,10 @@
     }
 
     &.active {
-      background-color: var(--clr-special-danger);
+      background-color: hsla(var(--clr-special-danger) ,1);
       
       &.success {
-        background-color: var(--clr-special-success);
+        background-color: hsla(var(--clr-special-success) ,1);
       }
 
       & > span {

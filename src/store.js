@@ -2,13 +2,16 @@ import { reactive } from 'vue';
 
 const store = reactive({
   user: null,
-  entries: {},
+  entries: [],
   settings: {
     darkmode: {
       value: true,
     },
     textOnly: {
       value: false,
+    },
+    delimiter: {
+      value: ' .,',
     },
   },
 });

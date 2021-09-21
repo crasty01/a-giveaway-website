@@ -35,8 +35,5 @@ export default {
       return this.padding ? this.size - 16 : this.size;
     },
   },
-  created() {
-    console.log(this.title);
-  },
 };
 </script>

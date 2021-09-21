@@ -55,7 +55,7 @@ export default {
     async signIn() {
       const { error } = this.supabase.auth.signIn(
         { provider: 'twitch' },
-        { redirectTo: 'https://a-giveaway-website-git-v200-crasty01.vercel.app/callback' },
+        { redirectTo: 'http://localhost:8080/callback' },
       );
       if (error) console.error(error);
     },
