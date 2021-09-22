@@ -1,3 +1,6 @@
+import {
+  object, number, min, string, size, assert,
+} from 'superstruct';
 import { store } from './store';
 
 export default {
@@ -33,22 +36,51 @@ export default {
         },
       },
       entries: {
-        parse(input = '') {
+        parse(input) {
           const delimiter = new RegExp(`[${store.settings.delimiter.value}]+`, 'gi');
-          return input.trim().replace(delimiter, '$').split('$');
+          const res = (input || '').replace(delimiter, ' ').trim().split(' ');
+          if (res.length === 1 && res[0] === '') return [];
+          return res;
         },
-        fromArray(input = []) {
-          return input.reduce((o, e) => {
+        fromArray(input) {
+          return (input || []).reduce((o, e) => {
             const n = { ...o };
             if (!n[e]) n[e] = 0;
             n[e] += 1;
             return n;
           }, {});
         },
-        add(input) {
-          const old = store.entries.find((e) => e.name === input.name);
-          if (old) old.entries += input.entries;
-          else store.entries.push(input);
+        add(base, toAdd) {
+          const o = { ...base };
+          Object.keys(toAdd).forEach((key) => {
+            if (!o[key]) o[key] = 0;
+            o[key] += toAdd[key];
+          });
+          return o;
+        },
+        getSize(obj) {
+          let n = 0;
+          Object.keys(obj).forEach((key) => {
+            n += obj[key];
+          });
+          return n;
+        },
+        schema: object({
+          name: size(string(), 4, 24),
+          entry: min(number(), 1),
+        }),
+        validate(input) {
+          const data = Object.entries(input);
+          let errors = [];
+          data.forEach(([name, entry]) => {
+            try {
+              assert({ name, entry }, helpers.entries.schema);
+            } catch (error) {
+              errors = errors.concat(error.failures());
+            }
+          });
+          if (errors.length > 0) throw errors;
+          return input;
         },
       },
     };

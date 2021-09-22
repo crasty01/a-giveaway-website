@@ -1,7 +1,6 @@
 @use '../abstracts/mixins.scss' as *;
 
 .list {
-  grid-area: list;
   align-self: start;
   display: grid;
   gap: calc(var(--base-size) * 2);

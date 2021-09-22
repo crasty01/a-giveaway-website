@@ -1,16 +1,20 @@
 <template>
   <div class="alerts">
-    <span v-for="alert in alerts" :key="alert">
-      {{ alert }}
-    </span>
+    <Alert @close="close" v-for="(alert, index) in s.alerts" :key="alert" :alert="alert" :index="index"/>
   </div>
 </template>
 
 <script>
+import Alert from '@/components/home/Alert.vue';
+
 export default {
-  props: {
-    alerts: {
-      type: Array,
+  inject: ['s'],
+  components: {
+    Alert,
+  },
+  methods: {
+    close(index) {
+      this.s.alerts.splice(index, 1);
     },
   },
 };

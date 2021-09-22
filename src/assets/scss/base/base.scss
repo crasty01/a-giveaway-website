@@ -25,6 +25,7 @@ body {
 /* width */
 ::-webkit-scrollbar {
   width: calc(var(--base-size) * 1);
+  height: calc(var(--base-size) * 1);
 }
 
 /* Track */

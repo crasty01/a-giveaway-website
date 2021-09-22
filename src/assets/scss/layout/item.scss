@@ -7,17 +7,19 @@
   border-radius: var(--base-size);
   padding: var(--base-size) calc(var(--base-size) * 2);
   display: grid;
-  gap: calc(var(--base-size) * 2);
-  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  gap: 0 calc(var(--base-size) * 1);
   justify-items: left;
   align-items: center;
+  
+  grid-template-columns: 1fr auto;
+  
+  @include mq(tiny) {
+    grid-template-columns: minmax(3rem, auto) 3rem 4.5rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+    gap: calc(var(--base-size) * 2);
+  }
 
   @include mq(small) {
-    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
-
-    & .entries-text {
-      display: inline;
-    }
+    grid-template-columns: minmax(3rem, auto) 8rem 4.5rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
   }
 
   & > .name, & > .entries {
@@ -27,11 +29,37 @@
     width: 100%;
   }
 
-  & .entries {
-    padding-left: .5rem;
+  & > .entries, & > .percentage {
+    color: hsla(var(--clr-dark-300), 1);
+    font-weight: 500;
+
+    @include mq(tiny) {
+      color: inherit;
+      font-weight: inherit;
+    }
+  }
+
+  & > .name {
+    font-size: var(--fs-500);
+    margin-bottom: var(--base-size);
+
+    @include mq(tiny) {
+      font-size: var(--font-size, --fs-normal);
+      margin-bottom: 0;
+    }
+  }
+
+  & > .entries {
+    @include mq(tiny) {
+      padding-left: .5rem;
+    }
 
     & .entries-text {
-      display: none;
+        //display: inline;
+
+      @include mq(tiny) {
+        display: none;
+      }
 
       @include mq(small) {
         display: inline;
@@ -50,16 +78,25 @@
   }
 
   & > .actions {
-    justify-self: right;
     user-select: none;
     display: grid;
     gap: var(--base-size);
-    grid-template-columns: auto auto auto;
     justify-items: center;
     align-items: center;
     opacity: .3;
     transition: opacity 150ms ease-in;
     //transition: none;
+
+    grid-row: 1 / 4;
+    grid-column: 2;
+    grid-template-columns: auto;
+
+    @include mq(tiny) {
+      justify-self: right;
+      grid-template-columns: auto auto auto;
+      grid-row: auto;
+      grid-column: auto;
+    }
 
     &:hover {
       color: hsla(var(--clr-dark-500), 1);

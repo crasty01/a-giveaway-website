@@ -271,6 +271,7 @@ body {
 /* width */
 ::-webkit-scrollbar {
   width: calc(var(--base-size) * 1);
+  height: calc(var(--base-size) * 1);
 }
 
 /* Track */
@@ -328,31 +329,6 @@ body {
   display: grid;
   gap: calc(var(--base-size) * 2);
 }
-:where(.main) > .row {
-  display: grid;
-  gap: calc(var(--base-size) * 8);
-  grid-template-columns: 1fr;
-  grid-template-areas: "adder" "list";
-  /*@include mq(medium) {
-    grid-template-columns: 6fr 5fr;
-    grid-template-areas: "list adder";
-  }*/
-}
-:where(.main) > .main-grid {
-  display: grid;
-  gap: calc(var(--base-size) * 4);
-  align-self: start;
-  justify-items: stretch;
-  align-items: flex-start;
-  grid-template-columns: 1fr;
-  grid-template-areas: "addOne" "addMultiple" "alerts" "list";
-}
-@media only screen and (min-width: 65em) {
-  :where(.main) > .main-grid {
-    grid-template-columns: 6fr 5fr;
-    grid-template-areas: "addOne alerts" "addMultiple alerts" "list alerts";
-  }
-}
 
 :where(.footer) {
   --spacing: 3rem;
@@ -379,17 +355,20 @@ body {
   border-radius: var(--base-size);
   padding: var(--base-size) calc(var(--base-size) * 2);
   display: grid;
-  gap: calc(var(--base-size) * 2);
-  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  gap: 0 calc(var(--base-size) * 1);
   justify-items: left;
   align-items: center;
+  grid-template-columns: 1fr auto;
+}
+@media only screen and (min-width: 25em) {
+  .item, .alert, form input, form textarea, :where(.button) {
+    grid-template-columns: minmax(3rem, auto) 3rem 4.5rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+    gap: calc(var(--base-size) * 2);
+  }
 }
 @media only screen and (min-width: 40em) {
   .item, .alert, form input, form textarea, :where(.button) {
-    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
-  }
-  .item .entries-text, .alert .entries-text, form input .entries-text, form textarea .entries-text, :where(.button) .entries-text {
-    display: inline;
+    grid-template-columns: minmax(3rem, auto) 8rem 4.5rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
   }
 }
 .item > .name, .alert > .name, form input > .name, form textarea > .name, :where(.button) > .name, .item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries {
@@ -398,14 +377,38 @@ body {
   text-overflow: ellipsis;
   width: 100%;
 }
-.item .entries, .alert .entries, form input .entries, form textarea .entries, :where(.button) .entries {
-  padding-left: 0.5rem;
+.item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries, .item > .percentage, .alert > .percentage, form input > .percentage, form textarea > .percentage, :where(.button) > .percentage {
+  color: hsla(var(--clr-dark-300), 1);
+  font-weight: 500;
 }
-.item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
-  display: none;
+@media only screen and (min-width: 25em) {
+  .item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries, .item > .percentage, .alert > .percentage, form input > .percentage, form textarea > .percentage, :where(.button) > .percentage {
+    color: inherit;
+    font-weight: inherit;
+  }
+}
+.item > .name, .alert > .name, form input > .name, form textarea > .name, :where(.button) > .name {
+  font-size: var(--fs-500);
+  margin-bottom: var(--base-size);
+}
+@media only screen and (min-width: 25em) {
+  .item > .name, .alert > .name, form input > .name, form textarea > .name, :where(.button) > .name {
+    font-size: var(--font-size, --fs-normal);
+    margin-bottom: 0;
+  }
+}
+@media only screen and (min-width: 25em) {
+  .item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries {
+    padding-left: 0.5rem;
+  }
+}
+@media only screen and (min-width: 25em) {
+  .item > .entries .entries-text, .alert > .entries .entries-text, form input > .entries .entries-text, form textarea > .entries .entries-text, :where(.button) > .entries .entries-text {
+    display: none;
+  }
 }
 @media only screen and (min-width: 40em) {
-  .item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
+  .item > .entries .entries-text, .alert > .entries .entries-text, form input > .entries .entries-text, form textarea > .entries .entries-text, :where(.button) > .entries .entries-text {
     display: inline;
   }
 }
@@ -414,15 +417,24 @@ body {
   transition: none;
 }
 .item > .actions, .alert > .actions, form input > .actions, form textarea > .actions, :where(.button) > .actions {
-  justify-self: right;
   user-select: none;
   display: grid;
   gap: var(--base-size);
-  grid-template-columns: auto auto auto;
   justify-items: center;
   align-items: center;
   opacity: 0.3;
   transition: opacity 150ms ease-in;
+  grid-row: 1/4;
+  grid-column: 2;
+  grid-template-columns: auto;
+}
+@media only screen and (min-width: 25em) {
+  .item > .actions, .alert > .actions, form input > .actions, form textarea > .actions, :where(.button) > .actions {
+    justify-self: right;
+    grid-template-columns: auto auto auto;
+    grid-row: auto;
+    grid-column: auto;
+  }
 }
 .item > .actions:hover, .alert > .actions:hover, form input > .actions:hover, form textarea > .actions:hover, :where(.button) > .actions:hover {
   color: hsla(var(--clr-dark-500), 1);
@@ -629,36 +641,11 @@ footer.footer .options.inline {
   gap: var(--base-size);
 }
 
-/*.adder {
-  display: grid;
-  gap: calc(var(--base-size) * 4);
-  grid-area: adder;
-  align-self: start;
-
-  grid-template-columns: 1fr;
-  justify-items: stretch;
-  align-items: flex-start;
-  //align-items: stretch;
-
-  @include mq(medium) {
-    grid-template-columns: 6fr 5fr;
-
-    & .alerts {
-      grid-row: 1 / 3;
-      grid-column: 2 / 3;
-    }
-  }
-}*/
 form {
   display: grid;
   gap: calc(var(--base-size) * 2);
-  grid-column: 1;
   max-width: calc(var(--base-size) * 100);
-}
-@media only screen and (min-width: 65em) {
-  form {
-    width: calc(var(--base-size) * 100);
-  }
+  width: 100%;
 }
 form .row {
   display: grid;
@@ -712,7 +699,6 @@ form .buttons {
 }
 
 .list {
-  grid-area: list;
   align-self: start;
   display: grid;
   gap: calc(var(--base-size) * 2);
@@ -743,42 +729,55 @@ form .buttons {
 
 .alerts {
   display: grid;
-  gap: var(--base-size);
-  grid-area: alerts;
   max-width: calc(var(--base-size) * 100);
+}
+.alerts > .content {
+  overflow-y: hidden;
+  border-radius: var(--base-size);
+}
+.alerts > .content:not(:last-child) {
+  margin-bottom: var(--base-size);
 }
 
 .alert {
   grid-template-columns: 1fr;
+  font-weight: 500;
   position: relative;
-  padding-right: calc(var(--base-size) * 4);
   color: hsla(var(--clr-dark-100), 1);
+  display: grid;
+  gap: calc(var(--base-size) * 2);
+  --clr-alert-bg: var(--clr-special-danger);
+  --clr-alert-text: var(--clr-dark-100);
+  background-color: hsla(var(--clr-alert-bg), 1);
+  border-color: hsla(var(--clr-alert-bg), 1);
+  color: hsla(var(--clr-alert-text), 1);
 }
 .alert.danger {
-  background-color: hsla(var(--clr-special-danger), 1);
-  border-color: hsla(var(--clr-special-danger), 1);
+  --clr-alert-bg: var(--clr-special-danger);
 }
 .alert.warning {
-  background-color: hsla(var(--clr-special-warning), 1);
-  border-color: hsla(var(--clr-special-warning), 1);
+  --clr-alert-bg: var(--clr-special-warning);
 }
 .alert.success {
-  background-color: hsla(var(--clr-special-success), 1);
-  border-color: hsla(var(--clr-special-success), 1);
+  --clr-alert-bg: var(--clr-special-success);
 }
 .alert.info {
-  background-color: hsla(var(--clr-special-info), 1);
-  border-color: hsla(var(--clr-special-info), 1);
+  --clr-alert-bg: var(--clr-special-info);
 }
-.alert > .icon {
-  position: absolute;
-  right: var(--base-size);
-  top: var(--base-size);
+.alert > header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  width: 100%;
+}
+.alert > header > .icon {
   opacity: 0.3;
   transition: opacity 150ms ease-in;
 }
-.alert > .icon:hover {
+.alert > header > .icon:hover {
   opacity: 1;
+}
+.alert .bold {
+  font-weight: 900;
 }
 
 .calculation {

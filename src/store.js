@@ -2,7 +2,8 @@ import { reactive } from 'vue';
 
 const store = reactive({
   user: null,
-  entries: [],
+  entries: {},
+  alerts: [],
   settings: {
     darkmode: {
       value: true,

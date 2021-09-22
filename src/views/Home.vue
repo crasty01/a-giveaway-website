@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <Forms @alert="alert"/>
-    <Alerts :alerts="alerts"/>
+    <Alerts/>
     <Entries/>
   </main>
 </template>
@@ -13,20 +13,15 @@ import Alerts from '../components/home/Alerts.vue';
 
 export default {
   name: 'Home',
+  inject: ['s'],
   components: {
     Forms,
     Entries,
     Alerts,
   },
-  data() {
-    return {
-      alerts: [],
-    };
-  },
   methods: {
-    alert(errors, clear = false) {
-      if (clear) this.alerts = [];
-      this.alerts = this.alerts.concat(errors);
+    alert(errors) {
+      this.s.alerts = errors;// .map((e) => ({ ...e, show: true }));
     },
   },
 };

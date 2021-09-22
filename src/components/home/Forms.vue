@@ -1,50 +1,40 @@
 <template>
-  <Form @submit="single" autocomplete="off">
+  <form @submit.prevent="single" autocomplete="off">
     <div class="row">
       <div class="label-group">
         <label for="name" :data-value="!!formData.name">name</label>
-        <Field name="name" type="text" v-slot="{ field }">
-          <input v-bind="field" v-model.number="formData.name"/>
-        </Field>
+        <input type="text" v-model="formData.name"/>
       </div>
       <div class="label-group">
         <label for="entries" :data-value="!!formData.entries">entries</label>
-        <Field name="entries" type="number" v-slot="{ field }">
-          <input v-bind="field" v-model.number="formData.entries"/>
-        </Field>
+        <input type="number" v-model="formData.entries"/>
       </div>
     </div>
     <div class="buttons">
       <Button class="full">add one participant</Button>
       <Icon :title="input_title" ref="success_one" class="state" :class="{ active: show.single, success }" padding :size="45" :success="success">{{ input_state }}</Icon>
     </div>
-  </Form>
-  <Form @submit="multiple" autocomplete="off">
+  </form>
+  <form @submit.prevent="multiple" autocomplete="off">
     <div class="label-group">
       <label for="names" :data-value="!!formData.names">names</label>
-      <Field name="names" type="text" v-slot="{ field }">
-        <textarea v-bind="field" v-model.number="formData.names" rows="4"></textarea>
-      </Field>
+      <textarea v-model="formData.names" rows="4"></textarea>
     </div>
     <div class="buttons">
       <Button class="full">add multiple participants</Button>
       <Icon :title="input_title" ref="success_multiple" class="state" :class="{ active: show.multiple, success }" padding :size="45" :success="success">{{ input_state }}</Icon>
     </div>
-  </Form>
+  </form>
 </template>
 
 <script>
-import { Form, Field } from 'vee-validate';
-import { markRaw } from 'vue';
-import * as yup from 'yup';
+// import { Form, Field } from 'vee-validate';
 import Button from '@/components/Button.vue';
 import Icon from '@/components/Icon.vue';
 
 export default {
   inject: ['h', 's'],
   components: {
-    Form,
-    Field,
     Button,
     Icon,
   },
@@ -52,19 +42,17 @@ export default {
   data() {
     return {
       success: true,
+      schemaForSingleEntry: this.h.others.schemaForSingleEntry,
+      schemaForMultipleEntries: this.h.others.schemaForMultipleEntries,
       formData: {
         name: '',
         names: '',
-        entries: 0,
+        entries: '',
       },
       show: {
         single: false,
         multiple: false,
       },
-      schema: markRaw(yup.object({
-        name: yup.string().min(3).max(26).required(),
-        entries: yup.number().positive().required(),
-      })),
     };
   },
   computed: {
@@ -76,32 +64,44 @@ export default {
     },
   },
   methods: {
-    async single(input, event, m = false) {
-      if (m ? input.last : true) this.success = true;
-      const value = {
-        name: (input.name || '').trim(),
-        entries: input.entries,
-      };
-      const validated = await this.schema.validate(value, { abortEarly: false }).catch((e) => {
+    async single() {
+      const input = { name: this.formData.name, entries: this.formData.entries };
+      this.successIndicationOn(false);
+      const entries = { [input.name.trim() || '']: (+input.entries || 0) };
+      [this.formData.name, this.formData.entries] = [Object.entries(entries)[0][0], Object.entries(entries)[0][1]];
+      try {
+        this.$emit('alert', []);
+        this.h.entries.validate(entries);
+        this.s.entries = this.h.entries.add(this.s.entries, entries);
+      } catch (e) {
         this.success = false;
-        this.$emit('alert', e.errors, m ? input.last : true);
-      });
-      if (validated) {
-        this.h.entries.add(validated);
-        this.$emit('alert', [], m ? input.last : true);
+        this.$emit('alert', e);
       }
-
-      // success + remove
-      this.show[m ? 'multiple' : 'single'] = true;
-      await this.h.others.sleep(600);
-      if (!m || input.last) this.show[m ? 'multiple' : 'single'] = false;
+      this.successIndicationOff(false);
     },
-
-    async multiple({ names = '' }, event) {
-      const entries = this.h.entries.fromArray(this.h.entries.parse(names));
-      Object.keys(entries).forEach((key, i, a) => {
-        this.single({ name: key, entries: entries[key], last: i === a.length - 1 }, event, true);
-      });
+    async multiple() {
+      const input = this.formData.names;
+      this.successIndicationOn(true);
+      const parsed = this.h.entries.parse(input);
+      this.formData.names = parsed.join(' ');
+      const entries = parsed.length > 0 ? this.h.entries.fromArray(parsed) : { '': 0 };
+      try {
+        this.$emit('alert', []);
+        this.h.entries.validate(entries);
+        this.s.entries = this.h.entries.add(this.s.entries, entries);
+      } catch (e) {
+        this.$emit('alert', e);
+        this.success = false;
+      }
+      this.successIndicationOff(true);
+    },
+    successIndicationOn(type) {
+      this.success = true;
+      this.show[type ? 'multiple' : 'single'] = true;
+    },
+    async successIndicationOff(type) {
+      await this.h.others.sleep(600);
+      this.show[type ? 'multiple' : 'single'] = false;
     },
   },
 };
