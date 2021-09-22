@@ -1,6 +1,6 @@
 <template>
   <transition name="fade-vertical">
-    <div class="content"  ref="content" :style="{ height: height !== 'auto' ? `${height}px` : false }" v-show="show">
+    <div class="content"  ref="content" :style="{ height: height !== 'auto' ? `${height}px` : height }" v-show="show">
       <div class="alert danger">
       <header>
         <div class="location">
@@ -35,6 +35,12 @@ export default {
       required: true,
     },
   },
+  created() {
+    window.addEventListener('resize', this.recalculate);
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.recalculate);
+  },
   data() {
     return {
       show: true,
@@ -42,11 +48,17 @@ export default {
     };
   },
   async mounted() {
-    this.height = this.$refs.content.offsetHeight;
+    this.recalculate();
   },
   methods: {
     close() {
       this.show = false;
+    },
+    recalculate() {
+      this.height = 'auto';
+      this.$nextTick(() => {
+        this.height = this.$refs.content.offsetHeight;
+      });
     },
   },
 };

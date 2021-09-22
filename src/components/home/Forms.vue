@@ -69,14 +69,7 @@ export default {
       this.successIndicationOn(false);
       const entries = { [input.name.trim() || '']: (+input.entries || 0) };
       [this.formData.name, this.formData.entries] = [Object.entries(entries)[0][0], Object.entries(entries)[0][1]];
-      try {
-        this.$emit('alert', []);
-        this.h.entries.validate(entries);
-        this.s.entries = this.h.entries.add(this.s.entries, entries);
-      } catch (e) {
-        this.success = false;
-        this.$emit('alert', e);
-      }
+      this.add(entries);
       this.successIndicationOff(false);
     },
     async multiple() {
@@ -85,15 +78,18 @@ export default {
       const parsed = this.h.entries.parse(input);
       this.formData.names = parsed.join(' ');
       const entries = parsed.length > 0 ? this.h.entries.fromArray(parsed) : { '': 0 };
+      this.add(entries);
+      this.successIndicationOff(true);
+    },
+    add(entries) {
       try {
         this.$emit('alert', []);
         this.h.entries.validate(entries);
         this.s.entries = this.h.entries.add(this.s.entries, entries);
       } catch (e) {
-        this.$emit('alert', e);
         this.success = false;
+        this.$emit('alert', e);
       }
-      this.successIndicationOff(true);
     },
     successIndicationOn(type) {
       this.success = true;
