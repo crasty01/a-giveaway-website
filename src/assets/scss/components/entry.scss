@@ -5,6 +5,7 @@
   padding: 0;
   overflow: hidden;
   display: block;
+  height: max-content;
 
   & .brief {
     width: 100%;
@@ -146,12 +147,6 @@
     overflow-y: hidden;
     padding: var(--base-size) calc(var(--base-size) * 2);
     font-weight: 400;
-
-    &:not(.opened) {
-      height: 0;
-      padding-top: 0;
-      padding-bottom: 0;
-    }
 
     & .title {
       font-weight: 600;

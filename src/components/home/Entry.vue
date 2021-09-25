@@ -1,7 +1,7 @@
 <template>
   <li class="item list-item entry" ref="root">
     <div class="brief">
-      <Icon :title="opened ? 'less information' : 'more information'" class="clickable dropdown" @click="opened = !opened">
+      <Icon :title="opened ? 'less information' : 'more information'" class="clickable dropdown" @click="toggleDetails">
         {{ opened ? 'arrow_drop_up' : 'arrow_drop_down' }}
       </Icon>
       <div class="name">{{ s.entries[name].name }}</div>
@@ -38,14 +38,18 @@
         <Icon class="clickable del" @click="del()">delete_outline</Icon>
       </div>
     </div>
-      <ul role="list" class="details" ref="details" :class="{ opened }">
-        <div class="title">user {{ s.entries[name].name }} has:</div>
-        <div class="percentage">{{ percentage }} % chances of winning</div>
-        <div class="total">{{ s.entries[name].entries }} out of a total of {{ h.entries.getSize(s.entries) }} {{ h.entries.getSize(s.entries) > 1 ? "entries" : "entry" }}</div>
-        <ul class="methods" role="list">
-          <li v-for="(value, method) in methods" :key="method">{{ value }} entries {{ methodInfo(method).msg }}</li>
-        </ul>
+    <div class="details" ref="details" v-if="opened">
+      <ul role="list">
+        <li class="title">user {{ s.entries[name].name }} has:</li>
+        <li class="percentage">{{ percentage }} % chances of winning</li>
+        <li class="total">{{ s.entries[name].entries }} out of a total of {{ h.entries.getSize(s.entries) }} {{ h.entries.getSize(s.entries) > 1 ? "entries" : "entry" }}</li>
+        <li class="methods" v-if="methods().length > 1">
+          <ul role="list">
+            <li v-for="method in methods()" :key="method">{{ method[1] }} entries {{ methodInfo(method[0]).msg }}</li>
+          </ul>
+        </li>
       </ul>
+    </div>
   </li>
 </template>
 
@@ -81,9 +85,6 @@ export default {
     json() {
       return JSON.stringify(this.s.entries[this.name], null, 2);
     },
-    methods() {
-      return Object.fromEntries(Object.entries(this.s.entries[this.name].methods).filter((e) => e[1] > 0));
-    },
   },
   props: {
     name: {
@@ -92,6 +93,13 @@ export default {
     },
   },
   methods: {
+    toggleDetails() {
+      // this.$emit('close'); // TODO: close all other entries
+      this.opened = !this.opened;
+    },
+    methods() {
+      return Object.entries(this.s.entries[this.name].methods).filter((e) => e[1] > 0);
+    },
     methodInfo(name) {
       return this.s.settings.methods.find((e) => e.code === name);
     },

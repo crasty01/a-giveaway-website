@@ -1,6 +1,6 @@
 <template>
   <div class="entries list" :class="{ large: entriesLength > 7 }">
-  <h2 class="h4 giveaway_title" ><input type="text" :class="{ wrong: s.giveawayTitle.length < 4 }" v-model="s.giveawayTitle"></h2>
+  <h2 class="h4 giveaway_title" ><input maxlength="35" type="text" :class="{ wrong: s.giveawayTitle.length < 4 }" v-model="s.giveawayTitle"></h2>
     <ul role="list">
       <Entry v-for="(entry, key) in s.entries" :key="key" :name="key"/>
     </ul>
