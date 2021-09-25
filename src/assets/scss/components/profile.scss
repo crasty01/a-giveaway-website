@@ -1,14 +1,22 @@
 @use '../layout/item.scss' as *;
+@use '../abstracts/mixins.scss' as *;
 
 .profile {
   position: relative;
   cursor: pointer;
   grid-area: profile;
   z-index: 100;
+  grid-row: 1 / 3;
+  align-self: flex-start;
 
-  //display: grid;
-  //align-content: center;
-  align-self: center;
+  // display: grid;
+  // align-content: center;
+  // align-self: center;
+
+  @include mq(tiny) {
+    grid-row: auto;
+    align-self: center;
+  }
 
 
   & > .short {
@@ -24,7 +32,7 @@
       /*
       box-shadow: 0 0 0 var(--border-width) hsla(var(--clr-accent-300), .5);
       .darkmode & {
-        //box-shadow: 0 0 0 var(--border-width) hsla(var(--clr-light-800), .2);
+        // box-shadow: 0 0 0 var(--border-width) hsla(var(--clr-light-800), .2);
         box-shadow: 0 0 0 var(--border-width) hsla(var(--clr-accent-600), .5);
       }
       */
@@ -72,7 +80,7 @@
     min-width: 8rem;
     max-width: calc(100vw - var(--wrapper-padding) * 2 - 8px);
     
-    //white-space: nowrap;
+    // white-space: nowrap;
     
     & > .list {
       gap: 0;
@@ -121,11 +129,11 @@
 
   & > .short {
     display: grid;
-    //grid-template-columns: auto auto;
+    // grid-template-columns: auto auto;
     align-items: center;
     border-radius: var(--base-size);
-    //background-color: hsla(var(--clr-accent-700), 1);
-    //gap: calc(var(--base-size) * 2);
+    // background-color: hsla(var(--clr-accent-700), 1);
+    // gap: calc(var(--base-size) * 2);
 
     & > .profile--picture {
       border-radius: var(--base-size);

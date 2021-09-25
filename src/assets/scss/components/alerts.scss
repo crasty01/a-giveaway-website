@@ -3,7 +3,7 @@
 .alerts {
   display: grid;
   // gap: var(--base-size);
-  max-width: calc(var(--base-size) * 100);
+  // max-width: calc(var(--base-size) * 100);
 
   & > .content {
     overflow-y: hidden;
@@ -16,12 +16,12 @@
 }
 
 .alert {
-  @extend .item;
+  @extend :where(.item);
 
   grid-template-columns: 1fr;
   font-weight: 500;
   position: relative;
-  //padding-right: calc(var(--base-size) * 5);
+  // padding-right: calc(var(--base-size) * 5);
   color: hsla(var(--clr-dark-100), 1);
   display: grid;
   gap: calc(var(--base-size) * 2);
@@ -30,10 +30,11 @@
   --clr-alert-bg: var(--clr-special-danger);
   --clr-alert-text: var(--clr-dark-100);
 
-  
-  background-color: hsla(var(--clr-alert-bg), 1);
-  border-color: hsla(var(--clr-alert-bg), 1);
-  color: hsla(var(--clr-alert-text), 1);
+  &, .darkmode & {
+    background-color: hsla(var(--clr-alert-bg), 1);
+    border-color: hsla(var(--clr-alert-bg), 1);
+    color: hsla(var(--clr-alert-text), 1);
+  }
 
   &.danger {
     --clr-alert-bg: var(--clr-special-danger);

@@ -3,4 +3,6 @@
 :where(.main) {
   display: grid;
   gap: calc(var(--base-size) * 2);
+
+  --max-width: calc(var(--base-size) * 100);
 }

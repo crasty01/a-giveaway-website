@@ -3,6 +3,7 @@
     <Forms @alert="alert"/>
     <Alerts/>
     <Entries/>
+    <pre>{{ h.supabase.exportData() }}</pre>
   </main>
 </template>
 
@@ -12,8 +13,7 @@ import Entries from '@/components/home/Entries.vue';
 import Alerts from '../components/home/Alerts.vue';
 
 export default {
-  name: 'Home',
-  inject: ['s'],
+  inject: ['s', 'h', 'supabase'],
   components: {
     Forms,
     Entries,

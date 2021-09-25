@@ -3,8 +3,11 @@
     <div class="content"  ref="content" :style="{ height: height !== 'auto' ? `${height}px` : height }" v-show="show">
       <div class="alert danger">
       <header>
-        <div class="location">
+        <div class="location" v-if="alert.key">
           The value of <span class="bold">{{ alert.key }}</span> seems to be incorrect:
+        </div>
+        <div class="location" v-else>
+          Something went wrong:
         </div>
         <Icon class="clickable" @click="close">close</Icon>
       </header>
@@ -69,6 +72,7 @@ $t: 1;
 
 .fade-vertical-enter-active, .fade-vertical-leave-active {
   transition: height 250ms * $t, opacity 200ms * $t, margin 150ms * $t 100ms * $t;
+  transition-timing-function: ease-out;
 }
 .fade-vertical-enter, .fade-vertical-leave-to {
   height: 0 !important;

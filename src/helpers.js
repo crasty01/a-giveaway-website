@@ -1,6 +1,7 @@
 import {
-  object, number, min, string, size, assert,
+  object, number, min, string, size, assert, enums,
 } from 'superstruct';
+import namez from 'namez';
 import { store } from './store';
 
 export default {
@@ -9,6 +10,9 @@ export default {
       others: {
         sleep(ms) {
           return new Promise((resolve) => setTimeout(resolve, ms));
+        },
+        generateGiveawayTitle() {
+          return namez({ format: 'title', separator: ' ' });
         },
       },
       darkmode: {
@@ -42,45 +46,71 @@ export default {
           if (res.length === 1 && res[0] === '') return [];
           return res;
         },
-        fromArray(input) {
+        fromArray(input, method = 'undef') {
+          // console.log('fromArray', input);
+          if (input.length <= 0) return { '': {} };
           return (input || []).reduce((o, e) => {
             const n = { ...o };
-            if (!n[e]) n[e] = 0;
-            n[e] += 1;
+            if (!n[e.toLowerCase()]) {
+              n[e.toLowerCase()] = {
+                entries: 0,
+                // methods: Object.fromEntries(store.settings.methods.map((m) => [m.code, 0])),
+                name: e,
+                method,
+              };
+            }
+
+            n[e.toLowerCase()].entries += 1;
+            // console.log('-', n[e.toLowerCase()]);
+
             return n;
           }, {});
         },
         add(base, toAdd) {
+          // console.log('toAdd', toAdd);
           const o = { ...base };
           Object.keys(toAdd).forEach((key) => {
-            if (!o[key]) o[key] = 0;
-            o[key] += toAdd[key];
+            if (!o[key]) {
+              o[key] = {
+                entries: 0,
+                name: toAdd[key].name,
+                methods: Object.fromEntries(store.settings.methods.map((m) => [m.code, 0])),
+              };
+            }
+            o[key].entries += toAdd[key].entries;
+            o[key].methods[toAdd[key].method || 'undef'] += toAdd[key].entries;
           });
           return o;
         },
         getSize(obj) {
           let n = 0;
           Object.keys(obj).forEach((key) => {
-            n += obj[key];
+            n += obj[key].entries;
           });
           return n;
         },
         schema: object({
           name: size(string(), 4, 24),
-          entry: min(number(), 1),
+          entries: min(number(), 1),
+          method: enums(store.settings.methods.map((method) => method.code)),
         }),
         validate(input) {
-          const data = Object.entries(input);
+          const keys = Object.keys(input);
           let errors = [];
-          data.forEach(([name, entry]) => {
+          keys.forEach((key) => {
             try {
-              assert({ name, entry }, helpers.entries.schema);
+              assert(input[key], helpers.entries.schema);
             } catch (error) {
               errors = errors.concat(error.failures());
             }
           });
           if (errors.length > 0) throw errors;
           return input;
+        },
+      },
+      supabase: {
+        exportData() {
+          return JSON.stringify(store.entries, null, 2);
         },
       },
     };

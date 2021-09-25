@@ -1,16 +1,29 @@
 @use '../abstracts/mixins.scss' as *;
 
-.list {
+
+.giveaway_title input {
+  padding: 0;
+  border: none;
+  line-height: 1;
+  max-width: none;
+  border-radius: 0;
+
+  &.wrong {
+    border-bottom: var(--border-width) solid hsla(var(--clr-special-danger), 1);
+    margin-bottom: calc(var(--border-width) * -1);
+  }
+}
+
+.entries:where(.list) {
   align-self: start;
   display: grid;
   gap: calc(var(--base-size) * 2);
-  max-width: calc(var(--base-size) * 100);
+  // max-width: var(--max-width);
 
   & > ul {
     display: grid;
     align-content: flex-start;
     gap: var(--base-size);
-      
 
     /*
     @include mq(medium) {
@@ -18,13 +31,9 @@
     }*/
   }
 
-  & .list-item {
-    background-color: hsla(var(--clr-dark-800), 1);
-
-    .darkmode & {
-      background-color: hsla(var(--clr-dark-200), 1);
-      border-color: hsla(var(--clr-dark-200), 1);
-    }
+  & > .total {
+    font-weight: normal;
+    text-align: right;
   }
   
 

@@ -5,8 +5,8 @@
   --wrapper-padding: 1rem;
   --border-width: 2px;
   --base-size: .5rem;
-  //--max-width: calc(var(--base-size) * 100);
-  --max-width: 1300px;
+  --max-width: calc(var(--base-size) * 120);
+  // --max-width: 1300px;
 
   @include mq(small) {
     --section-spacing: 10rem;

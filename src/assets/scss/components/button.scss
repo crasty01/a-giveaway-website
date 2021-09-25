@@ -1,12 +1,13 @@
 @use '../abstracts' as *;
 @use '../layout/item.scss';
 
-:where(.button) {
+.button {
   --bg: hsla(var(--clr-accent-700), 1);
   color: hsla(var(--clr-dark-100), 1);
 
-  @extend .item;
-  grid-template-columns: auto 1fr;
+  @extend :where(.item);
+
+  grid-template-columns: 1fr auto;
   gap: calc(var(--base-size) * 1);
   justify-items: left;
   width: fit-content;

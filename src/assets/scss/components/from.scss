@@ -1,10 +1,21 @@
 @use '../abstracts/mixins.scss' as *;
 @use '../layout/item.scss';
 
+
+.forms {
+  display: grid;
+  gap: calc(var(--base-size) * 2);
+  align-items: flex-end;
+
+  @include mq(medium) {
+    // grid-template-columns: 1fr 1fr;
+  }
+}
+
 form {
   display: grid;
   gap: calc(var(--base-size) * 2);
-  max-width: calc(var(--base-size) * 100);
+  // max-width: calc(var(--base-size) * 100);
   width: 100%;
 
   & .row {
@@ -13,7 +24,7 @@ form {
     gap: var(--base-size);
     
     @include mq(small) {
-      grid-template-columns: 2fr minmax(5rem, 1fr);
+      grid-template-columns: 2fr minmax(5rem, 1fr) minmax(5rem, 1fr);
     }
   }
 
@@ -30,7 +41,8 @@ form {
       position: absolute;
       user-select: none;
       top: calc(var(--base-size) + .1em);
-      left: calc(var(--base-size) * 2 + .2em);
+      // left: calc(var(--base-size) * 2 + .2em);
+      left: calc(var(--base-size) * 2);
       pointer-events: none;
       transition: opacity 150ms ease-in;
       opacity: 1;
@@ -41,8 +53,8 @@ form {
     }
   }
 
-  input, textarea {
-    @extend .item;
+  input, textarea, .input {
+    @extend :where(.item);
     background-color: inherit;
     border-style: dashed;
     resize: vertical;
@@ -55,7 +67,7 @@ form {
   }
 }
 
-:where(input, textarea) {
+:where(input, textarea, .input) {
   padding: var(--base-size) calc(var(--base-size) * 2);
   border: solid 2px hsla(var(--clr-light-700), 1);
   border-radius: 0.2rem;
