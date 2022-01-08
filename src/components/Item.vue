@@ -77,13 +77,13 @@ export default {
   },
   methods: {
     del() {
-      this.$emit('itemDel', this.user.name);
+      this.$store.dispatch('RemoveUser', this.user.name);
     },
     sub() {
-      this.$emit('itemSub', this.user.name);
+      this.$store.dispatch('IncrementUser', { name: this.user.name, delta: -1 });
     },
     add() {
-      this.$emit('itemAdd', this.user.name);
+      this.$store.dispatch('IncrementUser', { name: this.user.name, delta: 1 });
     },
     capitalize(s) {
       if (typeof s !== 'string') return '';
