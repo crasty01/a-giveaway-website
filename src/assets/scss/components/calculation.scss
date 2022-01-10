@@ -3,6 +3,7 @@
   gap: calc(var(--base-size) * 2);
   grid-template-rows: 1fr auto;
   align-content: flex-start;
+  max-width: calc(var(--base-size)*100);
   // align-self: normal;
 
   & > .wrapper {
