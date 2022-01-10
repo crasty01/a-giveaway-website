@@ -2,7 +2,10 @@ import { createStore } from 'vuex';
 
 function getEntriesFromStorage() {
   const { entries } = localStorage;
-  return JSON.parse(entries);
+  if (entries) {
+    return JSON.parse(entries);
+  }
+  return [];
 }
 
 export default createStore({
