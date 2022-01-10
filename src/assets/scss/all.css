@@ -662,6 +662,9 @@ form .buttons {
   gap: calc(var(--base-size) * 2);
   max-width: calc(var(--base-size) * 100);
 }
+.list .entries-count {
+  text-align: right;
+}
 .list > ul {
   display: grid;
   align-content: flex-start;

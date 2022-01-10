@@ -7,6 +7,10 @@
   gap: calc(var(--base-size) * 2);
   max-width: calc(var(--base-size) * 100);
 
+  & .entries-count {
+    text-align: right;
+  }
+
   & > ul {
     display: grid;
     align-content: flex-start;

@@ -7,6 +7,9 @@
       <h2 class="h3">participants:</h2>
       <div class="main-grid">
         <section class="list" :class="{ large: entries.length > 7 }">
+          <div class="entries-count">
+            number of entries: {{ allEntries }}
+          </div>
           <ul role="list" ref="list">
             <Item
               v-for="item in entries"
