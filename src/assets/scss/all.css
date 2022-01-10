@@ -350,13 +350,13 @@ body {
   padding: var(--base-size) calc(var(--base-size) * 2);
   display: grid;
   gap: calc(var(--base-size) * 2);
-  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+  grid-template-columns: minmax(3rem, auto) 3rem 4rem calc(var(--base-size) * 3 * 3 + 2 * var(--base-size));
   justify-items: left;
   align-items: center;
 }
 @media only screen and (min-width: 40em) {
   .item, .alert, form input, form textarea, :where(.button) {
-    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc((var(--base-size) * 3) * 3 + 2 * var(--base-size));
+    grid-template-columns: minmax(3rem, auto) 8rem 4rem calc(var(--base-size) * 3 * 3 + 2 * var(--base-size));
   }
   .item .entries-text, .alert .entries-text, form input .entries-text, form textarea .entries-text, :where(.button) .entries-text {
     display: inline;
@@ -623,8 +623,8 @@ form .label-group:focus label, form .label-group:focus-within label {
 form .label-group label {
   position: absolute;
   user-select: none;
-  top: calc(var(--base-size) + .1em);
-  left: calc(var(--base-size) * 2 + .2em);
+  top: calc(var(--base-size) + 0.1em);
+  left: calc(var(--base-size) * 2 + 0.2em);
   pointer-events: none;
   transition: opacity 150ms ease-in;
   opacity: 1;
@@ -682,7 +682,7 @@ form .buttons {
   overflow-y: scroll;
   padding-right: calc(var(--base-size) * 2);
   height: auto;
-  max-height: min(calc(45px * 7 + var(--base-size) * 6), 75vh);
+  max-height: min(315px + var(--base-size) * 6, 75vh);
 }
 
 .alerts {
@@ -730,6 +730,7 @@ form .buttons {
   gap: calc(var(--base-size) * 2);
   grid-template-rows: 1fr auto;
   align-content: flex-start;
+  max-width: calc(var(--base-size) * 100);
 }
 .calculation > .wrapper {
   background-color: var(--clr-light-700);

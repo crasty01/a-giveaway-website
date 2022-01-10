@@ -24,6 +24,7 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0",
     "node-sass": "^4.12.0",
+    "sass": "^1.47.0",
     "sass-loader": "^8.0.2"
   },
   "description": "A PWA/website for generating a (weighted) random winner out of multiple participants with a given number of entries. Made as an entry to competitionon on a twitch channel Cdubya719.",
