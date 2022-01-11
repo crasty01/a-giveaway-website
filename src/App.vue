@@ -7,12 +7,16 @@
       <h2 class="h3">participants:</h2>
       <div class="main-grid">
         <section class="list" :class="{ large: entries.length > 7 }">
-          <div class="entries-count">
-            number of entries: {{ allEntries }}
+          <div class="options">
+            <select name="sort" id="sort" class="sort" v-model="sortType">
+              <option value="0">by name</option>
+              <option value="1">by entries</option>
+            </select>
+            <div class="count">number of entries: {{ allEntries }}</div>
           </div>
           <ul role="list" ref="list">
             <Item
-              v-for="item in entries"
+              v-for="item in sortedEntries"
               :user="item"
               :key="item"
               :allEntries="allEntries"
@@ -41,7 +45,7 @@
     <div class="info">
       made with
       <Icon class="inline bold">favorite_border</Icon>
-      <span>& vue</span>
+      <span>&nbsp;&amp;&nbsp;vue</span>
       <br />by &copy;
       <a class="author" href="https://danielvondra.tk">Daniel Vondra</a>
     </div>
@@ -65,6 +69,11 @@ import Button from '@/components/Button.vue';
 import Calculation from '@/components/Calculation.vue';
 import Icon from '@/components/Icon.vue';
 
+const sorts = {
+  0: (a, b) => a.name.localeCompare(b.name),
+  1: (a, b) => b.entries - a.entries,
+};
+
 export default {
   name: 'App',
   components: {
@@ -79,19 +88,22 @@ export default {
       entries: [],
       calculating: false,
       darkmode: true,
+      sortType: 0,
     };
   },
   computed: {
     allEntries() {
-      return Object.values(this.entries).reduce((acc, e) => acc + e.entries, 0);
+      return this.entries.reduce((acc, e) => acc + e.entries, 0);
+    },
+    sortedEntries() {
+      const copy = [...this.entries];
+      return copy.sort(sorts[this.sortType]);
     },
   },
   mounted() {
-    // console.log(localStorage);
     if (localStorage.entries) {
       this.entries = JSON.parse(localStorage.entries);
     }
-
     this.switchModes(true);
   },
   watch: {
@@ -112,26 +124,19 @@ export default {
       document.documentElement.classList.add('notransitions');
       if (init) {
         if (localStorage.darkmode === undefined) {
-          this.darkmode = window.matchMedia(
-            '(prefers-color-scheme: dark)',
-          ).matches;
+          this.darkmode = window.matchMedia('(prefers-color-scheme: dark)').matches;
           localStorage.darkmode = this.darkmode;
         } else {
           this.darkmode = localStorage.darkmode === 'true';
         }
       }
 
-      document.documentElement.classList[this.darkmode ? 'add' : 'remove'](
-        'darkmode',
-      );
+      document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
       localStorage.setItem('darkmode', this.darkmode);
       console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
       document
         .querySelector('meta#themeColor')
-        .setAttribute(
-          'content',
-          this.darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)',
-        );
+        .setAttribute('content', this.darkmode ? 'hsl(240deg 7% 14%)' : 'hsl(0deg 0% 91%)');
       await this.$sleep(1);
       document.documentElement.classList.remove('notransitions');
     },

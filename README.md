@@ -29,7 +29,7 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [x] Percentage for winning probability
 - [ ] Profiles for saving data
 - [ ] Delete all / clear list
-- [ ] Filtering users by name, percentage ...
+- [X] Sorting users by name, percentage ...
 - [ ] Sharing lists
 
 ## Working on version 2.0.0
@@ -37,7 +37,7 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [x] Global reactive variable store
 - [x] Login with supabase
 - [x] Getting user info (avatar, name)
-- [ ] Entries sorting (name, number of entries ...)
+- [X] Entries sorting (name, number of entries ...)
 - [ ] User settings
 - [ ] Saving data to db
 - [ ] Filtering data from db

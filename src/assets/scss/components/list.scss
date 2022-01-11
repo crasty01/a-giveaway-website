@@ -1,4 +1,5 @@
 @use '../abstracts/mixins.scss' as *;
+@use '../layout/item.scss' as *;
 
 .list {
   grid-area: list;
@@ -7,15 +8,25 @@
   gap: calc(var(--base-size) * 2);
   max-width: calc(var(--base-size) * 100);
 
-  & .entries-count {
-    text-align: right;
+  & .options {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+
+    & .sort {
+      @extend .item;
+      background-color: inherit;
+      border-style: dashed;
+      resize: vertical;
+      width: auto;
+    }
   }
 
   & > ul {
     display: grid;
     align-content: flex-start;
     gap: var(--base-size);
-      
 
     /*
     @include mq(medium) {
@@ -31,7 +42,6 @@
       border-color: var(--clr-dark-200);
     }
   }
-  
 
   &.large {
     & > ul {

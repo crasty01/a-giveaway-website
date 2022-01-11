@@ -343,7 +343,7 @@ body {
 :where(section) *:where(.text) {
   --section-spacing: 0.6rem;
 }
-.item, .alert, form input, form textarea, :where(.button) {
+.item, .alert, .list .options .sort, form input, form textarea, :where(.button) {
   width: 100%;
   border: solid var(--border-width) var(--clr-dark-100);
   border-radius: var(--base-size);
@@ -355,35 +355,35 @@ body {
   align-items: center;
 }
 @media only screen and (min-width: 40em) {
-  .item, .alert, form input, form textarea, :where(.button) {
+  .item, .alert, .list .options .sort, form input, form textarea, :where(.button) {
     grid-template-columns: minmax(3rem, auto) 8rem 4rem calc(var(--base-size) * 3 * 3 + 2 * var(--base-size));
   }
-  .item .entries-text, .alert .entries-text, form input .entries-text, form textarea .entries-text, :where(.button) .entries-text {
+  .item .entries-text, .alert .entries-text, .list .options .sort .entries-text, form input .entries-text, form textarea .entries-text, :where(.button) .entries-text {
     display: inline;
   }
 }
-.item > .name, .alert > .name, form input > .name, form textarea > .name, :where(.button) > .name, .item > .entries, .alert > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries {
+.item > .name, .alert > .name, .list .options .sort > .name, form input > .name, form textarea > .name, :where(.button) > .name, .item > .entries, .alert > .entries, .list .options .sort > .entries, form input > .entries, form textarea > .entries, :where(.button) > .entries {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
 }
-.item .entries, .alert .entries, form input .entries, form textarea .entries, :where(.button) .entries {
+.item .entries, .alert .entries, .list .options .sort .entries, form input .entries, form textarea .entries, :where(.button) .entries {
   padding-left: 0.5rem;
 }
-.item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
+.item .entries .entries-text, .alert .entries .entries-text, .list .options .sort .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
   display: none;
 }
 @media only screen and (min-width: 40em) {
-  .item .entries .entries-text, .alert .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
+  .item .entries .entries-text, .alert .entries .entries-text, .list .options .sort .entries .entries-text, form input .entries .entries-text, form textarea .entries .entries-text, :where(.button) .entries .entries-text {
     display: inline;
   }
 }
-.item:hover > .actions, .alert:hover > .actions, form input:hover > .actions, form textarea:hover > .actions, :hover:where(.button) > .actions {
+.item:hover > .actions, .alert:hover > .actions, .list .options .sort:hover > .actions, form input:hover > .actions, form textarea:hover > .actions, :hover:where(.button) > .actions {
   opacity: 1;
   transition: none;
 }
-.item > .actions, .alert > .actions, form input > .actions, form textarea > .actions, :where(.button) > .actions {
+.item > .actions, .alert > .actions, .list .options .sort > .actions, form input > .actions, form textarea > .actions, :where(.button) > .actions {
   justify-self: right;
   user-select: none;
   display: grid;
@@ -394,23 +394,23 @@ body {
   opacity: 0.3;
   transition: opacity 150ms ease-in;
 }
-.item > .actions:hover, .alert > .actions:hover, form input > .actions:hover, form textarea > .actions:hover, :where(.button) > .actions:hover {
+.item > .actions:hover, .alert > .actions:hover, .list .options .sort > .actions:hover, form input > .actions:hover, form textarea > .actions:hover, :where(.button) > .actions:hover {
   color: var(--clr-dark-500);
 }
-.darkmode .item > .actions:hover, .darkmode .alert > .actions:hover, .darkmode form input > .actions:hover, form .darkmode input > .actions:hover, .darkmode form textarea > .actions:hover, form .darkmode textarea > .actions:hover, .darkmode :where(.button) > .actions:hover {
+.darkmode .item > .actions:hover, .darkmode .alert > .actions:hover, .darkmode .list .options .sort > .actions:hover, .list .options .darkmode .sort > .actions:hover, .darkmode form input > .actions:hover, form .darkmode input > .actions:hover, .darkmode form textarea > .actions:hover, form .darkmode textarea > .actions:hover, .darkmode :where(.button) > .actions:hover {
   color: var(--clr-light-300);
 }
-.item > .actions > .icon, .alert > .actions > .icon, form input > .actions > .icon, form textarea > .actions > .icon, :where(.button) > .actions > .icon {
+.item > .actions > .icon, .alert > .actions > .icon, .list .options .sort > .actions > .icon, form input > .actions > .icon, form textarea > .actions > .icon, :where(.button) > .actions > .icon {
   transition: color 150ms ease-in;
 }
-.item > .actions > .icon:hover, .alert > .actions > .icon:hover, form input > .actions > .icon:hover, form textarea > .actions > .icon:hover, :where(.button) > .actions > .icon:hover {
+.item > .actions > .icon:hover, .alert > .actions > .icon:hover, .list .options .sort > .actions > .icon:hover, form input > .actions > .icon:hover, form textarea > .actions > .icon:hover, :where(.button) > .actions > .icon:hover {
   color: var(--clr-dark-100);
   transition: none;
 }
-.darkmode .item > .actions > .icon:hover, .darkmode .alert > .actions > .icon:hover, .darkmode form input > .actions > .icon:hover, form .darkmode input > .actions > .icon:hover, .darkmode form textarea > .actions > .icon:hover, form .darkmode textarea > .actions > .icon:hover, .darkmode :where(.button) > .actions > .icon:hover {
+.darkmode .item > .actions > .icon:hover, .darkmode .alert > .actions > .icon:hover, .darkmode .list .options .sort > .actions > .icon:hover, .list .options .darkmode .sort > .actions > .icon:hover, .darkmode form input > .actions > .icon:hover, form .darkmode input > .actions > .icon:hover, .darkmode form textarea > .actions > .icon:hover, form .darkmode textarea > .actions > .icon:hover, .darkmode :where(.button) > .actions > .icon:hover {
   color: var(--clr-light-800);
 }
-.darkmode .item, .darkmode .alert, .darkmode form input, form .darkmode input, .darkmode form textarea, form .darkmode textarea, .darkmode :where(.button) {
+.darkmode .item, .darkmode .alert, .darkmode .list .options .sort, .list .options .darkmode .sort, .darkmode form input, form .darkmode input, .darkmode form textarea, form .darkmode textarea, .darkmode :where(.button) {
   border-color: var(--clr-dark-400);
 }
 
@@ -662,8 +662,17 @@ form .buttons {
   gap: calc(var(--base-size) * 2);
   max-width: calc(var(--base-size) * 100);
 }
-.list .entries-count {
-  text-align: right;
+.list .options {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+}
+.list .options .sort {
+  background-color: inherit;
+  border-style: dashed;
+  resize: vertical;
+  width: auto;
 }
 .list > ul {
   display: grid;
