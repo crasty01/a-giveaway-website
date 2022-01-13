@@ -20,9 +20,6 @@
               :user="item"
               :key="item"
               :allEntries="allEntries"
-              @itemDel="itemDel($event)"
-              @itemSub="itemSub($event)"
-              @itemAdd="itemAdd($event)"
               class="list-item"
             />
           </ul>
@@ -43,7 +40,6 @@
       v-if="calculating"
       :entries="entries"
       @calcSwitch="calcSwitch"
-      @decrementWinner="decrementWinner"
     />
   </transition>
   <footer class="footer">
@@ -61,7 +57,9 @@
       </div>
       <div v-if="darkmode" class="darkmode">
         <span class="mono">lightmode:</span>
-        <Icon class="clickable inline" @click="darkmode = false">light_mode</Icon>
+        <Icon class="clickable inline" @click="darkmode = false"
+          >light_mode</Icon
+        >
       </div>
     </div>
   </footer>
@@ -90,7 +88,6 @@ export default {
   },
   data() {
     return {
-      entries: [],
       calculating: false,
       darkmode: true,
       sortType: 0,
@@ -104,20 +101,17 @@ export default {
       const copy = [...this.entries];
       return copy.sort(sorts[this.sortType]);
     },
+    entries() {
+      return this.$store.state.entries;
+    },
   },
   mounted() {
-    if (localStorage.entries) {
-      this.entries = JSON.parse(localStorage.entries);
-    }
     this.switchModes(true);
   },
+  created() {
+    window.addEventListener('beforeunload', () => { this.$store.dispatch('Save'); });
+  },
   watch: {
-    entries: {
-      handler(val) {
-        localStorage.entries = JSON.stringify(val);
-      },
-      deep: true,
-    },
     darkmode: {
       handler() {
         this.switchModes();
@@ -146,30 +140,24 @@ export default {
       document.documentElement.classList.remove('notransitions');
     },
     async add(item) {
-      const i = this.entries.find((e) => e.name === item.name);
-      if (i) i.entries += item.entries;
-      else this.entries.push(item);
+      this.$store.commit('IncrementUser', {
+        name: item.name,
+        delta: item.entries,
+      });
       await this.$sleep(1);
       this.$scrollToEnd(this.$refs.list);
     },
     itemDel(e) {
       // console.log('itemDel', e);
-      this.entries = this.entries.filter((f) => f.name !== e);
+      this.$store.commit('RemoveUser', e);
     },
     itemSub(e) {
       // console.log('itemSub', e);
-      const c = this.entries.find((f) => f.name === e);
-      if (c.entries > 1) c.entries += -1;
-      // if (this.entries[e] <= 0) this.itemDel(e);
+      this.$store.commit('IncrementUser', { name: e, delta: -1 });
     },
     itemAdd(e) {
       // console.log('itemAdd', e);
-      this.entries.find((f) => f.name === e).entries += 1;
-    },
-    decrementWinner(name) {
-      const c = this.entries.find((f) => f.name === name);
-      if (c.entries > 1) c.entries += -1;
-      else this.itemDel(name);
+      this.$store.commit('IncrementUser', { name: e, delta: 1 });
     },
     calcSwitch() {
       this.calculating = !this.calculating;

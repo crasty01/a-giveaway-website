@@ -16,14 +16,15 @@
           }"
           v-for="(line, index) in lines"
           :key="line"
-        >{{ line.message }}</span>
+          >{{ line.message }}</span
+        >
       </div>
     </div>
     <div class="buttons">
       <Button
-        :icon="decrement?'check_box':'check_box_outline_blank'"
+        :icon="decrement ? 'check_box' : 'check_box_outline_blank'"
         text="remove from winner"
-        @click="decrement=!decrement"
+        @click="toggleDecrement"
       />
     </div>
     <div class="buttons">
@@ -37,12 +38,14 @@
 import lineTemplate from '@/assets/data/lines.json';
 import Button from '@/components/Button.vue';
 
+// import {useStore} from 'vuex';
+
 export default {
   name: 'calculation',
   components: {
     Button,
   },
-  emits: ['calcSwitch', 'decrementWinner'],
+  emits: ['calcSwitch'],
   props: {
     entries: {
       require: true,
@@ -54,8 +57,12 @@ export default {
     return {
       lines: [],
       running: false,
-      decrement: false,
     };
+  },
+  computed: {
+    decrement() {
+      return this.$store.state.decrementWinner;
+    },
   },
   mounted() {
     this.generate(this.random(10, 30), this.lines);
@@ -127,7 +134,10 @@ export default {
     decrementWinner() {
       const t = this.lines.at(-1);
       if (t.winner && this.decrement) {
-        this.$emit('decrementWinner', t.message);
+        this.$store.dispatch('IncrementUser', {
+          name: t.message,
+          delta: -1,
+        });
       }
     },
     reload() {
@@ -141,6 +151,9 @@ export default {
     goBack() {
       this.decrementWinner();
       this.$emit('calcSwitch');
+    },
+    toggleDecrement() {
+      this.$store.commit('ToggleDecrementWinner');
     },
   },
 };
