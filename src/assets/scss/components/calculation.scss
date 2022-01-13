@@ -3,7 +3,7 @@
   gap: calc(var(--base-size) * 2);
   grid-template-rows: 1fr auto;
   align-content: flex-start;
-  max-width: calc(var(--base-size)*100);
+  max-width: calc(var(--base-size) * 100);
   // align-self: normal;
 
   & > .wrapper {
@@ -15,7 +15,7 @@
     display: grid;
     gap: calc(var(--base-size) * 0);
     align-content: flex-start;
-    border: solid  var(--clr-light-700) calc(var(--base-size) * 2);
+    border: solid var(--clr-light-700) calc(var(--base-size) * 2);
     font-weight: 200;
     overflow: auto;
 
@@ -31,7 +31,7 @@
         &.essencial {
           font-size: 1.2rem;
           margin-bottom: 1rem;
-          margin-top: .5rem;
+          margin-top: 0.5rem;
           font-weight: 500;
         }
 
@@ -41,27 +41,28 @@
 
         &.winner {
           font-size: 2rem;
-          margin-bottom: .5rem;
+          margin-bottom: 0.5rem;
           font-weight: 900;
-          margin-top: .5rem;
+          margin-top: 0.5rem;
           // margin-bottom: 5rem;
-          
-          &::before, &::after {
+
+          &::before,
+          &::after {
             font-size: 1rem;
             font-weight: 100;
-            transform: translateY(-.5rem);
+            transform: translateY(-0.5rem);
             display: inline-block;
           }
 
           &::before {
-            content: '(ﾉ◕ヮ◕)ﾉ :･ﾟ✧';
+            content: "(ﾉ◕ヮ◕)ﾉ :･ﾟ✧";
           }
 
           &::after {
-            content: '✧ﾟ･: ヽ(◕ヮ◕ヽ)';
+            content: "✧ﾟ･: ヽ(◕ヮ◕ヽ)";
           }
         }
-      
+
         &::after {
           content: "";
           //margin-left: -.6rem;
@@ -79,10 +80,16 @@
   & .buttons {
     display: flex;
     gap: calc(var(--base-size) * 1);
+    flex-wrap: wrap;
+  }
+
+  & .decrement {
+    user-select: none;
+    cursor: pointer;
+    font-weight: 200;
+    margin-right: auto;
   }
 }
-
-
 
 @keyframes dots {
   0% {

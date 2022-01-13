@@ -800,6 +800,13 @@ form .buttons {
 .calculation .buttons {
   display: flex;
   gap: calc(var(--base-size) * 1);
+  flex-wrap: wrap;
+}
+.calculation .decrement {
+  user-select: none;
+  cursor: pointer;
+  font-weight: 200;
+  margin-right: auto;
 }
 
 @keyframes dots {

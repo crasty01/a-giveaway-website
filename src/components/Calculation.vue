@@ -16,16 +16,12 @@
           }"
           v-for="(line, index) in lines"
           :key="line"
-          >{{ line.message }}</span
-        >
+        >{{ line.message }}</span>
       </div>
     </div>
-    <div class="buttons">
-      <Button
-        :icon="decrement ? 'check_box' : 'check_box_outline_blank'"
-        text="remove from winner"
-        @click="toggleDecrement"
-      />
+    <div class="decrement" @click="toggleDecrement">
+      remove from winner&nbsp;
+      <Icon class="inline">{{decrement ? 'check_box' : 'check_box_outline_blank'}}</Icon>
     </div>
     <div class="buttons">
       <Button text="go back" class="back" @click="goBack" />
@@ -37,6 +33,7 @@
 <script>
 import lineTemplate from '@/assets/data/lines.json';
 import Button from '@/components/Button.vue';
+import Icon from '@/components/Icon.vue';
 
 // import {useStore} from 'vuex';
 
@@ -44,6 +41,7 @@ export default {
   name: 'calculation',
   components: {
     Button,
+    Icon,
   },
   emits: ['calcSwitch'],
   props: {
