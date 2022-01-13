@@ -10,7 +10,7 @@ The PWA is built on the vue.js framework and It's hosted at https://giveawayplat
 
 ### for vue:
 ```
-npm i
+npm ci
 npm run serve
 npm run build
 ```
