@@ -20,7 +20,14 @@
       </div>
     </div>
     <div class="buttons">
-      <Button text="go back" class="back" @click="$emit('calcSwitch')" />
+      <Button
+        :icon="decrement?'check_box':'check_box_outline_blank'"
+        text="remove from winner"
+        @click="decrement=!decrement"
+      />
+    </div>
+    <div class="buttons">
+      <Button text="go back" class="back" @click="goBack" />
       <Button text="reset" icon="refresh" class="rotate" @click="reload" />
     </div>
   </div>
@@ -35,7 +42,7 @@ export default {
   components: {
     Button,
   },
-  emits: ['calcSwitch'],
+  emits: ['calcSwitch', 'decrementWinner'],
   props: {
     entries: {
       require: true,
@@ -47,6 +54,7 @@ export default {
     return {
       lines: [],
       running: false,
+      decrement: false,
     };
   },
   mounted() {
@@ -116,12 +124,23 @@ export default {
       const r = Math.random() * w;
       return ws?.find((e) => e.weight > r);
     },
+    decrementWinner() {
+      const t = this.lines.at(-1);
+      if (t.winner && this.decrement) {
+        this.$emit('decrementWinner', t.message);
+      }
+    },
     reload() {
+      this.decrementWinner();
       this.lines.push({
         message: '------- new evaluation -------',
         break: true,
       });
       this.generate(this.random(10, 30), this.lines);
+    },
+    goBack() {
+      this.decrementWinner();
+      this.$emit('calcSwitch');
     },
   },
 };

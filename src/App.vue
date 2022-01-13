@@ -39,7 +39,12 @@
     </main>
   </transition>
   <transition name="fade">
-    <Calculation v-if="calculating" :entries="entries" @calcSwitch="calcSwitch" />
+    <Calculation
+      v-if="calculating"
+      :entries="entries"
+      @calcSwitch="calcSwitch"
+      @decrementWinner="decrementWinner"
+    />
   </transition>
   <footer class="footer">
     <div class="info">
@@ -160,6 +165,11 @@ export default {
     itemAdd(e) {
       // console.log('itemAdd', e);
       this.entries.find((f) => f.name === e).entries += 1;
+    },
+    decrementWinner(name) {
+      const c = this.entries.find((f) => f.name === name);
+      if (c.entries > 1) c.entries += -1;
+      else this.itemDel(name);
     },
     calcSwitch() {
       this.calculating = !this.calculating;
