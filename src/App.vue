@@ -9,8 +9,9 @@
         <section class="list" :class="{ large: entries.length > 7 }">
           <div class="options">
             <select name="sort" id="sort" class="sort" v-model="sortType">
-              <option value="0">by name</option>
-              <option value="1">by entries</option>
+              <option v-for="(val, key) in sorts" :key="key" :value="val" :selected="false">
+                {{ key }}
+              </option>
             </select>
             <Button class="danger full" text="purge everyone" @click="comencePurge()" />
             <div class="count">number of entries: {{ allEntries }}</div>
@@ -74,8 +75,8 @@ import Calculation from '@/components/Calculation.vue';
 import Icon from '@/components/Icon.vue';
 
 const sorts = {
-  0: (a, b) => a.name.localeCompare(b.name),
-  1: (a, b) => b.entries - a.entries,
+  'by name': (a, b) => a.name.localeCompare(b.name),
+  'by entries': (a, b) => b.entries - a.entries,
 };
 
 export default {
@@ -91,7 +92,7 @@ export default {
     return {
       calculating: false,
       darkmode: true,
-      sortType: 0,
+      sortType: sorts['by name'],
     };
   },
   computed: {
@@ -100,7 +101,7 @@ export default {
     },
     sortedEntries() {
       const copy = [...this.entries];
-      return copy.sort(sorts[this.sortType]);
+      return copy.sort(this.sortType);
     },
     entries() {
       return this.$store.state.entries;
@@ -110,6 +111,7 @@ export default {
     this.switchModes(true);
   },
   created() {
+    this.sorts = sorts;
     window.addEventListener('beforeunload', () => { this.$store.dispatch('Save'); });
   },
   watch: {
