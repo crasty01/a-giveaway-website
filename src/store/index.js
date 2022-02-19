@@ -17,17 +17,17 @@ export default createStore({
     ToggleDecrementWinner(state) {
       state.decrementWinner = !state.decrementWinner;
     },
-    IncrementUser(state, payload) {
-      let user = state.entries.find((x) => x.name === payload.name);
+    IncrementUser(state, { name, delta }) {
+      let user = state.entries.find((x) => x.name === name);
       if (!user) {
-        user = { name: payload.name, entries: 0 };
+        user = { name, entries: 0 };
         state.entries.push(user);
       }
 
-      user.entries += payload.delta;
+      user.entries += delta;
 
       if (user.entries <= 0) {
-        state.entries = state.entries.filter((x) => x.name !== payload.name);
+        state.entries = state.entries.filter((x) => x.name !== name);
       }
     },
     RemoveUser(state, name) {
