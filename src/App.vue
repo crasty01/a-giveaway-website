@@ -55,11 +55,11 @@
     <div class="options">
       <div v-if="!darkmode" class="darkmode">
         <span class="mono">darkmode:</span>
-        <Icon class="clickable inline" @click="darkmode = true">dark_mode</Icon>
+        <Icon class="clickable inline" @click="toggleDarkmode()">dark_mode</Icon>
       </div>
-      <div v-if="darkmode" class="darkmode">
+      <div v-else class="darkmode">
         <span class="mono">lightmode:</span>
-        <Icon class="clickable inline" @click="darkmode = false"
+        <Icon class="clickable inline" @click="toggleDarkmode()"
           >light_mode</Icon
         >
       </div>
@@ -73,6 +73,8 @@ import Adder from '@/components/Adder.vue';
 import Button from '@/components/Button.vue';
 import Calculation from '@/components/Calculation.vue';
 import Icon from '@/components/Icon.vue';
+
+import dm from './darkmode';
 
 const sorts = {
   'by name': (a, b) => a.name.localeCompare(b.name),
@@ -91,7 +93,6 @@ export default {
   data() {
     return {
       calculating: false,
-      darkmode: true,
       sortType: sorts['by name'],
     };
   },
@@ -106,9 +107,13 @@ export default {
     entries() {
       return this.$store.state.entries;
     },
+    darkmode() {
+      return this.$store.state.darkmode;
+    },
   },
   mounted() {
-    this.switchModes(true);
+    dm.InitializeVuexDarkmode();
+    this.SetDarkMode();
   },
   created() {
     this.sorts = sorts;
@@ -117,24 +122,18 @@ export default {
   watch: {
     darkmode: {
       handler() {
-        this.switchModes();
+        this.SetDarkMode();
       },
     },
   },
   methods: {
-    async switchModes(init = false) {
+    toggleDarkmode() {
+      dm.UnregisterDarkmodeChanges();
+      this.$store.commit('ToggleDarkModeWithUserPrefers');
+    },
+    async SetDarkMode() {
       document.documentElement.classList.add('notransitions');
-      if (init) {
-        if (localStorage.darkmode === undefined) {
-          this.darkmode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          localStorage.darkmode = this.darkmode;
-        } else {
-          this.darkmode = localStorage.darkmode === 'true';
-        }
-      }
-
       document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
-      localStorage.setItem('darkmode', this.darkmode);
       console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
       document
         .querySelector('meta#themeColor')

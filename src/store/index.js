@@ -1,7 +1,11 @@
 import { createStore } from 'vuex';
 
+const entriesKey = 'entries';
+const decWinnerKey = 'saveDecrementWinner';
+const darkmodeKey = 'darkmode';
+
 function getEntriesFromStorage() {
-  const { entries } = localStorage;
+  const entries = localStorage[entriesKey];
   if (entries) {
     return JSON.parse(entries);
   }
@@ -11,7 +15,9 @@ function getEntriesFromStorage() {
 export default createStore({
   state: () => ({
     entries: getEntriesFromStorage(),
-    decrementWinner: localStorage.saveDecrementWinner === 'true',
+    decrementWinner: localStorage[decWinnerKey] === 'true',
+    darkmode: true,
+    userPrefersDarkmode: null,
   }),
   mutations: {
     ToggleDecrementWinner(state) {
@@ -33,6 +39,17 @@ export default createStore({
     RemoveUser(state, name) {
       state.entries = state.entries.filter((x) => x.name !== name);
     },
+    SetDarkModeWithUserPrefers(state, mode) {
+      state.darkmode = mode;
+      state.userPrefersDarkmode = state.darkmode;
+    },
+    SetDarkMode(state, mode) {
+      state.darkmode = mode;
+    },
+    ToggleDarkModeWithUserPrefers(state) {
+      state.darkmode = !state.darkmode;
+      state.userPrefersDarkmode = state.darkmode;
+    },
     PurgeEntries(state) {
       state.entries = [];
     },
@@ -47,6 +64,12 @@ export default createStore({
     Save(ctx) {
       localStorage.entries = JSON.stringify(ctx.state.entries);
       localStorage.saveDecrementWinner = ctx.state.decrementWinner;
+      if (ctx.state.userPrefersDarkmode !== null) {
+        localStorage[darkmodeKey] = ctx.state.userPrefersDarkmode;
+      } else {
+        delete localStorage[darkmodeKey];
+      }
     },
+
   },
 });
