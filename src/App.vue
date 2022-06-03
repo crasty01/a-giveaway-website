@@ -30,6 +30,9 @@
               @click="calcSwitch()"
             />
           </div>
+          <div>
+            <Button class="danger full" text="PURGE EVERYONE" @click="comencePurge()"/>
+          </div>
         </section>
         <Adder @itemAdded="add($event)" />
       </div>
@@ -161,6 +164,20 @@ export default {
     },
     calcSwitch() {
       this.calculating = !this.calculating;
+    },
+    comencePurge() {
+      // TODO: Make it beautiful
+
+      // eslint-disable-next-line no-alert
+      if (!window.confirm('Are you sure?')) {
+        return;
+      }
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Should we keep current entries?')) {
+        return;
+      }
+
+      this.$store.commit('PurgeEntries');
     },
   },
 };

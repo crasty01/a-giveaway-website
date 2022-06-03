@@ -516,6 +516,12 @@ body {
   transform: rotate(-90deg);
   filter: invert(99%) sepia(15%) saturate(0%) hue-rotate(233deg) brightness(112%) contrast(92%);
 }
+:where(.button).danger {
+  --bg: #f66a60;
+}
+:where(.button).danger:hover {
+  --bg: #f33d30;
+}
 :where(.button).full {
   width: 100%;
 }
