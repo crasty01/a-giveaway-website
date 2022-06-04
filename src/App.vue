@@ -167,17 +167,10 @@ export default {
     },
     comencePurge() {
       // TODO: Make it beautiful
-
       // eslint-disable-next-line no-alert
-      if (!window.confirm('Are you sure?')) {
-        return;
+      if (window.confirm('Are you sure?')) {
+        this.$store.commit('PurgeEntries');
       }
-      // eslint-disable-next-line no-alert
-      if (window.confirm('Should we keep current entries?')) {
-        return;
-      }
-
-      this.$store.commit('PurgeEntries');
     },
   },
 };
