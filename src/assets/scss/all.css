@@ -7,34 +7,34 @@
   --max-width: 1300px;
   --border-width: 2px;
   --base-size: .5rem;
-  --clr-dark-100: #09090b;
-  --clr-dark-200: #212126;
-  --clr-dark-300: #393941;
-  --clr-dark-400: #51515d;
-  --clr-dark-500: #686878;
-  --clr-dark-600: #818192;
-  --clr-dark-700: #9d9daa;
-  --clr-dark-800: #b5b5c4;
-  --clr-light-100: #5c5c5c;
-  --clr-light-200: #757575;
-  --clr-light-300: #8f8f8f;
-  --clr-light-400: #a8a8a8;
-  --clr-light-500: #c2c2c2;
-  --clr-light-600: #dbdbdb;
-  --clr-light-700: #e8e8e8;
-  --clr-light-800: whitesmoke;
-  --clr-accent-100: #4500ad;
-  --clr-accent-200: #5a00e0;
-  --clr-accent-300: #7214ff;
-  --clr-accent-400: #9147ff;
-  --clr-accent-500: #a66bff;
-  --clr-accent-600: #af7aff;
-  --clr-accent-700: #ceadff;
-  --clr-accent-800: #ede0ff;
-  --clr-special-warning: #f6bc60;
-  --clr-special-danger: #f66a60;
-  --clr-special-success: #80f660;
-  --clr-special-info: #60cef6;
+  --clr-dark-100: hsl(240deg, 10%, 4%);
+  --clr-dark-200: hsl(240deg, 7%, 14%);
+  --clr-dark-300: hsl(240deg, 7%, 24%);
+  --clr-dark-400: hsl(240deg, 7%, 34%);
+  --clr-dark-500: hsl(240deg, 7%, 44%);
+  --clr-dark-600: hsl(240deg, 7%, 54%);
+  --clr-dark-700: hsl(240deg, 7%, 64%);
+  --clr-dark-800: hsl(240deg, 11%, 74%);
+  --clr-light-100: hsl(0deg, 0%, 36%);
+  --clr-light-200: hsl(0deg, 0%, 46%);
+  --clr-light-300: hsl(0deg, 0%, 56%);
+  --clr-light-400: hsl(0deg, 0%, 66%);
+  --clr-light-500: hsl(0deg, 0%, 76%);
+  --clr-light-600: hsl(0deg, 0%, 86%);
+  --clr-light-700: hsl(0deg, 0%, 91%);
+  --clr-light-800: hsl(0deg, 0%, 96%);
+  --clr-accent-100: hsl(264deg, 100%, 34%);
+  --clr-accent-200: hsl(264deg, 100%, 44%);
+  --clr-accent-300: hsl(264deg, 100%, 54%);
+  --clr-accent-400: hsl(264deg, 100%, 64%);
+  --clr-accent-500: hsl(264deg, 100%, 71%);
+  --clr-accent-600: hsl(264deg, 100%, 74%);
+  --clr-accent-700: hsl(264deg, 100%, 84%);
+  --clr-accent-800: hsl(265deg, 100%, 94%);
+  --clr-special-warning: hsl(37deg, 89%, 67%);
+  --clr-special-danger: hsl(4deg, 89%, 67%);
+  --clr-special-success: hsl(107deg, 89%, 67%);
+  --clr-special-info: hsl(196deg, 89%, 67%);
   --fs-normal: 1rem;
   --fs-500: 1.125rem;
   --fs-400: 1.563rem;
@@ -130,7 +130,6 @@ select {
   html {
     scroll-behavior: auto;
   }
-
   *,
 *::before,
 *::after {
@@ -517,7 +516,7 @@ body {
   filter: invert(99%) sepia(15%) saturate(0%) hue-rotate(233deg) brightness(112%) contrast(92%);
 }
 :where(.button).danger {
-  --bg: #f66a60;
+  --bg: hsl(4deg, 89%, 67%);
 }
 :where(.button).danger:hover {
   --bg: #f33d30;
@@ -578,8 +577,7 @@ body {
 footer.footer {
   max-width: calc(var(--base-size) * 100);
   grid-template-columns: 1fr auto;
-}
-/*.adder {
+} /*.adder {
   display: grid;
   gap: calc(var(--base-size) * 4);
   grid-area: adder;
@@ -670,7 +668,8 @@ form .buttons {
 }
 .list .options {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto 1fr;
+  gap: 1rem;
   justify-content: space-between;
   align-items: center;
 }
@@ -679,6 +678,9 @@ form .buttons {
   border-style: dashed;
   resize: vertical;
   width: auto;
+}
+.list .options :last-child {
+  justify-self: flex-end;
 }
 .list > ul {
   display: grid;

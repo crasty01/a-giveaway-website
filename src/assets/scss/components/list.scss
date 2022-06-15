@@ -10,7 +10,8 @@
 
   & .options {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto 1fr;
+    gap: 1rem;
     justify-content: space-between;
     align-items: center;
 
@@ -20,6 +21,10 @@
       border-style: dashed;
       resize: vertical;
       width: auto;
+    }
+
+    & :last-child {
+      justify-self: flex-end;
     }
   }
 

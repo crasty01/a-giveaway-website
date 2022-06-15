@@ -12,6 +12,7 @@
               <option value="0">by name</option>
               <option value="1">by entries</option>
             </select>
+            <Button class="danger full" text="PURGE EVERYONE" @click="comencePurge()" />
             <div class="count">number of entries: {{ allEntries }}</div>
           </div>
           <ul role="list" ref="list">
@@ -29,9 +30,6 @@
               text="Roll the dice - figuratively speaking"
               @click="calcSwitch()"
             />
-          </div>
-          <div>
-            <Button class="danger full" text="PURGE EVERYONE" @click="comencePurge()"/>
           </div>
         </section>
         <Adder @itemAdded="add($event)" />
