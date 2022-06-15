@@ -12,6 +12,7 @@
               <option value="0">by name</option>
               <option value="1">by entries</option>
             </select>
+            <Button class="danger full" text="purge everyone" @click="comencePurge()" />
             <div class="count">number of entries: {{ allEntries }}</div>
           </div>
           <ul role="list" ref="list">
@@ -161,6 +162,13 @@ export default {
     },
     calcSwitch() {
       this.calculating = !this.calculating;
+    },
+    comencePurge() {
+      // TODO: Make it beautiful
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Are you sure?')) {
+        this.$store.commit('PurgeEntries');
+      }
     },
   },
 };

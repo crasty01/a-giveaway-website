@@ -1,5 +1,6 @@
 @use '../abstracts' as *;
 @use '../layout/item.scss';
+@use "sass:map";
 
 :where(.button) {
   --bg: var(--clr-accent-700);
@@ -72,6 +73,14 @@
     & .arrow {
       transform: rotate(-90deg);
       filter: invert(99%) sepia(15%) saturate(0%) hue-rotate(233deg) brightness(112%) contrast(92%);
+    }
+  }
+
+  &.danger {
+    $bgColor: map-get($colors,"special","danger");
+    --bg: #{$bgColor};
+    &:hover {
+      --bg: #{darken(map.get($colors,"special","danger"),10%)};
     }
   }
 

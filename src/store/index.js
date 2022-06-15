@@ -33,6 +33,9 @@ export default createStore({
     RemoveUser(state, name) {
       state.entries = state.entries.filter((x) => x.name !== name);
     },
+    PurgeEntries(state) {
+      state.entries = [];
+    },
   },
   actions: {
     IncrementUser(ctx, payload) {
