@@ -27,6 +27,13 @@
     width: 100%;
   }
 
+
+  & .name {
+    & .note-text {
+      font-style: italic;
+      font-weight: 100;
+    }
+  }
   & .entries {
     padding-left: .5rem;
 

@@ -1,6 +1,7 @@
 <template>
   <li class="item">
-    <div class="name">{{ user.name }}</div>
+    <div class="name">{{ user.name }}
+      <span class="note-text" v-if="user.note">{{user.note}}</span></div>
     <div class="entries">
       {{ user.entries }}
       <span class="entries-text">
@@ -77,13 +78,13 @@ export default {
   },
   methods: {
     del() {
-      this.$store.dispatch('RemoveUser', this.user.name);
+      this.$store.dispatch('RemoveUser', { name: this.user.name, note: this.user.note });
     },
     sub() {
-      this.$store.dispatch('IncrementUser', { name: this.user.name, delta: -1 });
+      this.$store.dispatch('IncrementUser', { name: this.user.name, note: this.user.note, delta: -1 });
     },
     add() {
-      this.$store.dispatch('IncrementUser', { name: this.user.name, delta: 1 });
+      this.$store.dispatch('IncrementUser', { name: this.user.name, note: this.user.note, delta: 1 });
     },
     capitalize(s) {
       if (typeof s !== 'string') return '';

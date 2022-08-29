@@ -23,21 +23,21 @@ export default createStore({
     ToggleDecrementWinner(state) {
       state.decrementWinner = !state.decrementWinner;
     },
-    IncrementUser(state, { name, delta }) {
-      let user = state.entries.find((x) => x.name === name);
+    IncrementUser(state, { name, delta, note }) {
+      let user = state.entries.find((x) => x.name === name && x.note === note);
       if (!user) {
-        user = { name, entries: 0 };
+        user = { name, note, entries: 0 };
         state.entries.push(user);
       }
 
       user.entries += delta;
 
       if (user.entries <= 0) {
-        state.entries = state.entries.filter((x) => x.name !== name);
+        state.entries = state.entries.filter((x) => !(x.name === name && x.note === note));
       }
     },
-    RemoveUser(state, name) {
-      state.entries = state.entries.filter((x) => x.name !== name);
+    RemoveUser(state, { name, note }) {
+      state.entries = state.entries.filter((x) => !(x.name === name && x.note === note));
     },
     SetDarkModeWithUserPrefers(state, mode) {
       state.darkmode = mode;

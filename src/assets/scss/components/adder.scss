@@ -60,7 +60,7 @@ form {
       left: calc(var(--base-size) * 2 + .2em);
       pointer-events: none;
       transition: opacity 150ms ease-in;
-      opacity: 1;
+      opacity: 0.75;
 
       &:not([data-value="false"]) {
           opacity: 0;

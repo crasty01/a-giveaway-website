@@ -33,7 +33,7 @@
             />
           </div>
         </section>
-        <Adder @itemAdded="add($event)" />
+        <Adder @itemAdded="add($event)" :AdditionalNotes="allNotes" />
       </div>
     </main>
   </transition>
@@ -100,6 +100,9 @@ export default {
     allEntries() {
       return this.entries.reduce((acc, e) => acc + e.entries, 0);
     },
+    allNotes() {
+      return this.entries.map((x) => x.note);
+    },
     sortedEntries() {
       const copy = [...this.entries];
       return copy.sort(this.sortType);
@@ -144,6 +147,7 @@ export default {
     async add(item) {
       this.$store.commit('IncrementUser', {
         name: item.name,
+        note: item.note === '' ? undefined : item.note,
         delta: item.entries,
       });
       await this.$sleep(1);
