@@ -11,7 +11,7 @@
   "dependencies": {
     "core-js": "^3.20.2",
     "register-service-worker": "^1.7.1",
-    "vue": "^3.2.26",
+    "vue": "^3.2.37",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
@@ -25,9 +25,9 @@
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^7.20.0",
-    "node-sass": "^4.12.0",
-    "sass": "^1.48.0",
-    "sass-loader": "^8.0.2"
+    "node-sass": "^7.0.1",
+    "sass": "^1.54.5",
+    "sass-loader": "^10"
   },
   "description": "A PWA/website for generating a (weighted) random winner out of multiple participants with a given number of entries. Made as an entry to competitionon on a twitch channel Cdubya719.",
   "main": "src/main.js",

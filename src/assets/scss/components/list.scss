@@ -1,6 +1,14 @@
 @use '../abstracts/mixins.scss' as *;
 @use '../layout/item.scss' as *;
 
+.sort {
+  @extend .item;
+  background-color: inherit;
+  border-style: dashed;
+  resize: vertical;
+  width: auto;
+}
+
 .list {
   grid-area: list;
   align-self: start;
@@ -14,14 +22,6 @@
     gap: 1rem;
     justify-content: space-between;
     align-items: center;
-
-    & .sort {
-      @extend .item;
-      background-color: inherit;
-      border-style: dashed;
-      resize: vertical;
-      width: auto;
-    }
 
     & :last-child {
       justify-self: flex-end;

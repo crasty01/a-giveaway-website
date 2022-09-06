@@ -1,7 +1,7 @@
 <template>
   <!--<section class="adder">-->
   <form
-    @submit.prevent="add([{ name, entries }])"
+    @submit.prevent="add([{ name, note, entries }])"
     autocomplete="off"
     :class="{ narrow: alerts_comp.length > 0 }"
   >
@@ -12,14 +12,37 @@
       </div>
       <div class="label-group">
         <label for="entries" :data-value="!!entries">entries</label>
-        <input type="number" name="entries" id="entries" v-model="entries" />
+        <input
+          type="number"
+          name="entries"
+          id="entries"
+          v-model="entries"
+          min="1"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="label-group">
+        <label for="name" class="placeholder" :data-value="!!note">note</label>
+        <input type="text" name="name" list="noteOptions" v-model="note" />
+
+        <datalist id="noteOptions">
+          <option v-for="val in NoteOptions" :key="val" :value="val">
+            {{ val }}
+          </option>
+        </datalist>
       </div>
     </div>
     <div class="buttons">
       <Button class="full" text="add one participant" />
-      <Icon ref="success_one" class="state" padding :size="45" :success="success">{{
-        input_state
-      }}</Icon>
+      <Icon
+        ref="success_one"
+        class="state"
+        padding
+        :size="45"
+        :success="success"
+        >{{ input_state }}</Icon
+      >
     </div>
   </form>
   <form
@@ -37,9 +60,14 @@
     </div>
     <div class="buttons">
       <Button class="full" text="add multiple participants" />
-      <Icon ref="success_multiple" class="state" padding :size="45" :success="success">{{
-        input_state
-      }}</Icon>
+      <Icon
+        ref="success_multiple"
+        class="state"
+        padding
+        :size="45"
+        :success="success"
+        >{{ input_state }}</Icon
+      >
     </div>
   </form>
   <Alerts @hide="hide($event)" :alerts="alerts_comp" :key="alerts" />
@@ -53,12 +81,20 @@ import Icon from '@/components/Icon.vue';
 
 import alerts from '@/assets/data/alerts.json';
 
+const bootstrapNotes = new Set(['Giveaway redeem', 'Raid', 'Bits', 'Subs']);
+
 export default {
   name: 'Adder',
   components: {
     Button,
     Alerts,
     Icon,
+  },
+  props: {
+    AdditionalNotes: {
+      default: () => [],
+      type: Array,
+    },
   },
   computed: {
     alerts_comp() {
@@ -69,11 +105,17 @@ export default {
     input_state() {
       return this.success ? 'check_circle' : 'cancel';
     },
+    NoteOptions() {
+      const a = new Set([...bootstrapNotes, ...this.AdditionalNotes]);
+      console.log(a);
+      return a;
+    },
   },
   emits: ['itemAdded'],
   data() {
     return {
       name: '',
+      note: '',
       names: '',
       entries: null,
       delimiter: '',
@@ -132,7 +174,9 @@ export default {
     },
     active(a, m, t) {
       setTimeout(() => {
-        this.$refs[m ? 'success_multiple' : 'success_one'].$el.classList[a]('active');
+        this.$refs[m ? 'success_multiple' : 'success_one'].$el.classList[a](
+          'active',
+        );
       }, t);
     },
     parse(text, d) {

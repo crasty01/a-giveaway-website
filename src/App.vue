@@ -9,8 +9,9 @@
         <section class="list" :class="{ large: entries.length > 7 }">
           <div class="options">
             <select name="sort" id="sort" class="sort" v-model="sortType">
-              <option value="0">by name</option>
-              <option value="1">by entries</option>
+              <option v-for="(val, key) in sorts" :key="key" :value="val" :selected="false">
+                {{ key }}
+              </option>
             </select>
             <Button class="danger full" text="purge everyone" @click="comencePurge()" />
             <div class="count">number of entries: {{ allEntries }}</div>
@@ -32,7 +33,7 @@
             />
           </div>
         </section>
-        <Adder @itemAdded="add($event)" />
+        <Adder @itemAdded="add($event)" :AdditionalNotes="allNotes" />
       </div>
     </main>
   </transition>
@@ -54,11 +55,11 @@
     <div class="options">
       <div v-if="!darkmode" class="darkmode">
         <span class="mono">darkmode:</span>
-        <Icon class="clickable inline" @click="darkmode = true">dark_mode</Icon>
+        <Icon class="clickable inline" @click="toggleDarkmode()">dark_mode</Icon>
       </div>
-      <div v-if="darkmode" class="darkmode">
+      <div v-else class="darkmode">
         <span class="mono">lightmode:</span>
-        <Icon class="clickable inline" @click="darkmode = false"
+        <Icon class="clickable inline" @click="toggleDarkmode()"
           >light_mode</Icon
         >
       </div>
@@ -73,9 +74,11 @@ import Button from '@/components/Button.vue';
 import Calculation from '@/components/Calculation.vue';
 import Icon from '@/components/Icon.vue';
 
+import dm from './darkmode';
+
 const sorts = {
-  0: (a, b) => a.name.localeCompare(b.name),
-  1: (a, b) => b.entries - a.entries,
+  'by name': (a, b) => a.name.localeCompare(b.name),
+  'by entries': (a, b) => b.entries - a.entries,
 };
 
 export default {
@@ -90,49 +93,50 @@ export default {
   data() {
     return {
       calculating: false,
-      darkmode: true,
-      sortType: 0,
+      sortType: sorts['by name'],
     };
   },
   computed: {
     allEntries() {
       return this.entries.reduce((acc, e) => acc + e.entries, 0);
     },
+    allNotes() {
+      return this.entries.map((x) => x.note);
+    },
     sortedEntries() {
       const copy = [...this.entries];
-      return copy.sort(sorts[this.sortType]);
+      return copy.sort(this.sortType);
     },
     entries() {
       return this.$store.state.entries;
     },
+    darkmode() {
+      return this.$store.state.darkmode;
+    },
   },
   mounted() {
-    this.switchModes(true);
+    dm.InitializeVuexDarkmode();
+    this.SetDarkMode();
   },
   created() {
+    this.sorts = sorts;
     window.addEventListener('beforeunload', () => { this.$store.dispatch('Save'); });
   },
   watch: {
     darkmode: {
       handler() {
-        this.switchModes();
+        this.SetDarkMode();
       },
     },
   },
   methods: {
-    async switchModes(init = false) {
+    toggleDarkmode() {
+      dm.UnregisterDarkmodeChanges();
+      this.$store.commit('ToggleDarkModeWithUserPrefers');
+    },
+    async SetDarkMode() {
       document.documentElement.classList.add('notransitions');
-      if (init) {
-        if (localStorage.darkmode === undefined) {
-          this.darkmode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          localStorage.darkmode = this.darkmode;
-        } else {
-          this.darkmode = localStorage.darkmode === 'true';
-        }
-      }
-
       document.documentElement.classList[this.darkmode ? 'add' : 'remove']('darkmode');
-      localStorage.setItem('darkmode', this.darkmode);
       console.log('switched to:', this.darkmode ? 'darkmode' : 'lightmode');
       document
         .querySelector('meta#themeColor')
@@ -143,6 +147,7 @@ export default {
     async add(item) {
       this.$store.commit('IncrementUser', {
         name: item.name,
+        note: item.note === '' ? undefined : item.note,
         delta: item.entries,
       });
       await this.$sleep(1);

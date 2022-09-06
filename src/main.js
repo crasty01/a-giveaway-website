@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import Vuex from 'vuex';
 import App from './App.vue';
 import './registerServiceWorker';
-import './assets/scss/all.css';
+import './assets/scss/all.scss';
 import store from './store';
 
 const app = createApp(App);

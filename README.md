@@ -10,15 +10,9 @@ The PWA is built on the vue.js framework and It's hosted at https://giveawayplat
 
 ### for vue:
 ```
-npm ci
-npm run serve
-npm run build
-```
-
-### for scss/sass compiler:
-```
-npm i -g sass
-sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
+yarn
+yarn serve
+yarn build
 ```
 
 ## Planned enhancement
@@ -28,7 +22,7 @@ sass -w ./src/assets/scss/all.scss:./src/assets/scss/all.css
 - [x] Entries managemet (+, -, delete)
 - [x] Percentage for winning probability
 - [ ] Profiles for saving data
-- [ ] Delete all / clear list
+- [X] Delete all / clear list
 - [X] Sorting users by name, percentage ...
 - [ ] Sharing lists
 
